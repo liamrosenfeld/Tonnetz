@@ -2,6 +2,7 @@
   "name": "tester",
   "version": "1.0.0",
   "description": "test",
+  "author": "Liam Rosenfeld",
   "scripts": {
     "start": "tsc && node index.js",
     "dev": "tsc --watch"

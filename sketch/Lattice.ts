@@ -8,8 +8,11 @@ class Lattice {
 
   private triSize = 100;
 
+  private sketch: p5;
+
   // Init
-  constructor(w: Int, h: Int) {
+  constructor(sketch: p5, w: Int, h: Int) {
+    this.sketch = sketch;
     this.w = w;
     this.h = h;
   }
@@ -19,18 +22,18 @@ class Lattice {
     let nextRowStart = Point.zero();
     let tri = new EqTriangle(Point.zero(), 0, false); // filler
     
-    stroke(200);
+    this.sketch.stroke(200);
     
     for (let currentH: Int = 0; currentH < this.h; currentH++) {
       // first one in row
       let up = false;
       tri = new EqTriangle(nextRowStart, this.triSize, up);
       if (0 == this.selectedX && currentH == this.selectedY) {
-        fill(150);
-        tri.draw();
-        fill(0);
+        this.sketch.fill(150);
+        tri.draw(this.sketch);
+        this.sketch.fill(0);
       } else {
-        tri.draw();
+        tri.draw(this.sketch);
       }
       nextRowStart = tri.middlePoint.copy();
       
@@ -40,11 +43,11 @@ class Lattice {
         up = !up;
         tri = new EqTriangle(nextHorPoint, this.triSize, up);
         if (currentW == this.selectedX && currentH == this.selectedY) {
-          fill(150);
-          tri.draw();
-          fill(0);
+          this.sketch.fill(150);
+          tri.draw(this.sketch);
+          this.sketch.fill(0);
         } else {
-          tri.draw();
+          tri.draw(this.sketch);
         }
         nextHorPoint = tri.middlePoint;
       }
@@ -76,8 +79,15 @@ class Lattice {
       this.selectedY +=1;
       this.selectedX -= 1;
     }
-    
-    
+  }
+
+  // getters
+  public get getSelectedX(): Int {
+    return this.selectedX
+  }
+
+  public get getSelectedY(): Int {
+    return this.selectedY
   }
 }
 
@@ -118,7 +128,7 @@ class EqTriangle {
 
   public calcMiddlePoint(up: boolean): Point {
     let middle = Point.zero();
-    const sqrt3 = sqrt(3);
+    const sqrt3 = Math.sqrt(3);
 
     if (up) { // this is opposite because the canvas is not like normal math
       middle.x = ((this.leftPoint.x + this.rightPoint.x) - (sqrt3 * (this.rightPoint.y - this.leftPoint.y))) / 2;
@@ -132,8 +142,8 @@ class EqTriangle {
   }
 
   // methods
-  draw() {
-    triangle(
+  draw(sketch: p5) {
+    sketch.triangle(
       this.leftPoint.x, this.leftPoint.y,
       this.middlePoint.x, this.middlePoint.y,
       this.rightPoint.x, this.rightPoint.y

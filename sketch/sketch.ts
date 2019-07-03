@@ -1,28 +1,41 @@
-var lattice = new Lattice(12, 5);
+const s = (sketch: p5) => {
 
-function setup() {
-  createCanvas(windowWidth, windowHeight)
-  background(51);
-  noLoop();
-}
+  var lattice = new Lattice(sketch, 12, 5);
+  var player = new Player(sketch);
+  var playing = false;
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  background(51);
-  redraw();
-}
+  sketch.setup = () => {
+    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+    sketch.background(51);
+  };
 
-function draw() {
-  lattice.draw();
-}
-
-function keyPressed() {
-  if (key == 's') {
-    lattice.moveVertically();
-  } else if (key == 'a') {
-    lattice.moveLeft();
-  } else if (key == 'd') {
-    lattice.moveRight();
+  sketch.windowResized = () => {
+    sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+    sketch.background(51);
+    sketch.redraw();
   }
-  redraw();
-}
+
+  sketch.draw = () => {
+    lattice.draw();
+  };
+
+  sketch.keyPressed = () => {
+    if (sketch.key == 's') {
+      lattice.moveVertically();
+      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+    } else if (sketch.key == 'a') {
+      lattice.moveLeft();
+      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+    } else if (sketch.key == 'd') {
+      lattice.moveRight();
+      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+    }
+
+    if (!playing) {
+      player.play();
+    }
+    sketch.redraw();
+  }
+};
+
+let myp5 = new p5(s);
