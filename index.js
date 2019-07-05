@@ -1,6 +1,6 @@
-const express = require('express');
+const Express = require('express');
 const path = require('path');
-const app = new express();
+const app = new Express();
 const port = 8080
 
 app.use('/build', express.static('build'))
@@ -14,4 +14,6 @@ app.get('*', function(req, res){
 });
   
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}!`);
+});

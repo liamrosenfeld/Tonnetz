@@ -1,8 +1,7 @@
 const s = (sketch: p5) => {
 
-  var lattice = new Lattice(sketch, 12, 5);
-  var player = new Player(sketch);
-  var playing = false;
+  let manager = new PositionManager(sketch);
+  let playing = false;
 
   sketch.setup = () => {
     sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
@@ -16,23 +15,20 @@ const s = (sketch: p5) => {
   }
 
   sketch.draw = () => {
-    lattice.draw();
+    manager.lattice.draw();
   };
 
   sketch.keyPressed = () => {
     if (sketch.key == 's') {
-      lattice.moveVertically();
-      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+      manager.moveVertically();
     } else if (sketch.key == 'a') {
-      lattice.moveLeft();
-      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+      manager.moveLeft();
     } else if (sketch.key == 'd') {
-      lattice.moveRight();
-      player.setTriPosition(lattice.getSelectedX, lattice.getSelectedY);
+      manager.moveRight();
     }
 
     if (!playing) {
-      player.play();
+      manager.player.play();
     }
     sketch.redraw();
   }

@@ -3,8 +3,8 @@ class Lattice {
   private w: Int;
   private h: Int;
 
-  private selectedX: Int = 0;
-  private selectedY: Int = 0;
+  selectedX: Int = 0;
+  selectedY: Int = 0;
 
   private triSize = 100;
 
@@ -52,42 +52,6 @@ class Lattice {
         nextHorPoint = tri.middlePoint;
       }
     }
-  }
-
-  // interactions
-  moveLeft() {
-    this.selectedX -= 1;
-    if (this.selectedX < 0) {
-      this.selectedX = this.w - 1;
-    }
-  }
-
-  moveRight() {
-    this.selectedX += 1;
-    if (this.selectedX >= this.w) {
-      this.selectedX = 0;
-    }
-  }
-
-  moveVertically() {
-    if (this.selectedX % 2 == 0) {
-      if (this.selectedY - 1 >= 0) {
-        this.selectedY -= 1;
-        this.selectedX += 1;
-      }
-    } else if (this.selectedY + 1 < this.h) {
-      this.selectedY +=1;
-      this.selectedX -= 1;
-    }
-  }
-
-  // getters
-  public get getSelectedX(): Int {
-    return this.selectedX
-  }
-
-  public get getSelectedY(): Int {
-    return this.selectedY
   }
 }
 
