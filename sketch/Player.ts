@@ -1,12 +1,21 @@
 class Player {
-  private readonly midi = [
-    [67, 62, 69, 64, 71, 66, 61],
-    [71, 66, 61, 68, 63, 70, 65],
-    [63, 70, 65, 60, 67, 62, 69],
-    [67, 62, 69, 64, 71, 66, 61],
-    [71, 66, 61, 68, 63, 70, 65],
-    [63, 70, 65, 60, 67, 71, 72]
-  ]
+  
+  private readonly midi: Int[][];
+
+  private calcMidi(): Int[][] {
+    const rowStart = [55, 59, 63, 55, 59, 63];
+
+    let midi: number[][] = new Array();
+    for (let row = 0; row < rowStart.length; row+=1) {
+      midi.push([]);
+      midi[row].push(rowStart[row]);
+      for (let col = 1; col < 12; col+=1) {
+        const nextNote = rowStart[row] + (col * 7)
+        midi[row].push(nextNote);
+      }
+    }
+    return midi
+  }
   
   private osc1 = new p5.SinOsc();
   private osc2 = new p5.SinOsc();
@@ -16,6 +25,7 @@ class Player {
 
   constructor(sketch: p5) {
     this.sketch = sketch;
+    this.midi = this.calcMidi();
   }
   
   play() {
