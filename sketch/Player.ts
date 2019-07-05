@@ -3,7 +3,7 @@ class Player {
   private readonly midi: Int[][];
 
   private calcMidi(): Int[][] {
-    const rowStart = [55, 59, 63, 55, 59, 63];
+    const rowStart = [43, 47, 51, 55, 59, 63];
 
     let midi: number[][] = new Array();
     for (let row = 0; row < rowStart.length; row+=1) {

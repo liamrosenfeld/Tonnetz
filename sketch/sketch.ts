@@ -19,13 +19,17 @@ const s = (sketch: p5) => {
   };
 
   sketch.keyPressed = () => {
-    if (sketch.key == 's') {
-      manager.moveVertically();
-    } else if (sketch.key == 'a') {
-      manager.moveLeft();
-    } else if (sketch.key == 'd') {
-      manager.moveRight();
+    switch(sketch.key) {
+      case 'a' : { manager.leadingTone();   break};
+      case 's' : { manager.parallel();      break};
+      case 'd' : { manager.relative();      break};
+      case 'z' : { manager.nebenLeft();     break};
+      case 'x' : { manager.nebenRight();    break};
+      case 'c' : { manager.slide();         break};
+      case 'v' : { manager.hexatonicPole(); break};
     }
+
+    manager.update();
 
     if (!playing) {
       manager.player.play();

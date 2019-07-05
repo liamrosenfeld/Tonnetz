@@ -16,24 +16,17 @@ class PositionManager {
     this.player  = new Player(sketch);
   }
 
-  // interactions
-  moveLeft() {
+  // primary
+  leadingTone() {
+    // move left
     this.x -= 1;
     if (this.x < 0) {
       this.x = this.w - 1;
     }
-    this.update();
   }
 
-  moveRight() {
-    this.x += 1;
-    if (this.x >= this.w) {
-      this.x = 0;
-    }
-    this.update();
-  }
-
-  moveVertically() {
+  parallel() {
+    // move vertically
     if (this.x % 2 == 0) {
       if (this.y - 1 >= 0) {
         this.y -= 1;
@@ -43,9 +36,42 @@ class PositionManager {
       this.y +=1;
       this.x -= 1;
     }
-    this.update();
-  } 
+  }
 
+  relative() {
+    // move right
+    this.x += 1;
+    if (this.x >= this.w) {
+      this.x = 0;
+    }
+  }
+
+  // secondary
+  nebenLeft() {
+    this.leadingTone();
+    this.leadingTone();
+    this.parallel();
+  }
+
+  nebenRight() {
+    this.relative();
+    this.relative();
+    this.parallel();
+  }
+
+  slide() {
+    this.leadingTone();
+    this.parallel();
+    this.relative();
+  }
+
+  hexatonicPole() {
+    this.leadingTone();
+    this.parallel();
+    this.leadingTone();
+  }
+
+  // NOTE: MUST BE CALLED TO UPDATE MANAGED
   update() {
     this.lattice.selectedX = this.x;
     this.lattice.selectedY = this.y;
