@@ -2,7 +2,6 @@ const s = (sketch: p5) => {
 
   let manager: PositionManager;
   let picker: MovePicker;
-  let playing = false;
 
   sketch.setup = () => {
     manager = new PositionManager(sketch);
@@ -30,9 +29,6 @@ const s = (sketch: p5) => {
 
     manager.update();
 
-    if (!playing) {
-      manager.player.play();
-    }
     sketch.redraw();
   }
 };

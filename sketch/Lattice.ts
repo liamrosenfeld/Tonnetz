@@ -19,8 +19,8 @@ class Lattice {
 
   // Drawing
   draw() {
-    let nextRowStart = Point.zero();
-    let tri = new EqTriangle(Point.zero(), 0, false); // filler
+    let nextRowStart = new Point(10, 15); // padding
+    let tri: EqTriangle;
     
     this.sketch.stroke(200);
     
