@@ -1,18 +1,17 @@
 const s = (sketch: p5) => {
 
-  let manager = new PositionManager(sketch);
+  let manager: PositionManager;
+  let picker: MovePicker;
   let playing = false;
 
   sketch.setup = () => {
-    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(51);
-  };
+    manager = new PositionManager(sketch);
+    picker  = new MovePicker(sketch, manager);
 
-  sketch.windowResized = () => {
-    sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+    sketch.createCanvas(1300, 700);
     sketch.background(51);
-    sketch.redraw();
-  }
+    picker.addButtons();
+  };
 
   sketch.draw = () => {
     manager.lattice.draw();
