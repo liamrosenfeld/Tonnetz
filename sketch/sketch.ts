@@ -4,11 +4,12 @@ const s = (sketch: p5) => {
   let picker: MovePicker;
 
   sketch.setup = () => {
-    manager = new PositionManager(sketch);
-    picker  = new MovePicker(sketch, manager);
-
     sketch.createCanvas(1300, 700);
     sketch.background(51);
+    sketch.noLoop();
+
+    manager = new PositionManager(sketch);
+    picker  = new MovePicker(sketch, manager);
     picker.addButtons();
   };
 

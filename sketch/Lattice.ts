@@ -20,6 +20,8 @@ class Lattice {
   // Drawing
   draw() {
     let nextRowStart = new Point(10, 15); // padding
+    let points: Point[] = new Array();
+    let tempPoints: Point[] = new Array();
     let tri: EqTriangle;
     
     this.sketch.stroke(200);
@@ -28,29 +30,49 @@ class Lattice {
       // first one in row
       let up = false;
       tri = new EqTriangle(nextRowStart, this.triSize, up);
-      if (0 == this.selectedX && currentH == this.selectedY) {
-        this.sketch.fill(150);
-        tri.draw(this.sketch);
-        this.sketch.fill(0);
-      } else {
-        tri.draw(this.sketch);
-      }
+
+      // color if selected
+      const selected = (0 == this.selectedX && currentH == this.selectedY)
+      this.sketch.fill(selected ? 150 : 0);
+
+      // draw and setup next row
+      tri.draw(this.sketch);
       nextRowStart = tri.middlePoint.copy();
+
+      // get points
+      points.push(tri.leftPoint);
       
       // rest of row
       let nextHorPoint = tri.middlePoint.copy();
       for (let currentW: Int = 1; currentW < this.w; currentW++) {
+        // assemble triangle
         up = !up;
         tri = new EqTriangle(nextHorPoint, this.triSize, up);
-        if (currentW == this.selectedX && currentH == this.selectedY) {
-          this.sketch.fill(150);
-          tri.draw(this.sketch);
-          this.sketch.fill(0);
-        } else {
-          tri.draw(this.sketch);
-        }
+
+        // color if selected
+        const selected = (currentW == this.selectedX && currentH == this.selectedY)
+        this.sketch.fill(selected ? 150 : 0);
+
+        // draw and setup for next
+        tri.draw(this.sketch);
         nextHorPoint = tri.middlePoint;
+
+        // get points
+        if (up) {
+          points.push(tri.middlePoint);
+
+          if (currentH == this.h - 1) {
+            if (currentW == 1) {
+              tempPoints.push(tri.leftPoint);
+            }
+            tempPoints.push(tri.rightPoint);
+          }
+        }
       }
+
+      points = points.concat(tempPoints);
+      let circles = new Circles(this.sketch)
+      circles.draw(points);
     }
   }
 }
@@ -105,7 +127,7 @@ class EqTriangle {
     return middle;
   }
 
-  // methods
+  // drawing
   draw(sketch: p5) {
     sketch.triangle(
       this.leftPoint.x, this.leftPoint.y,
@@ -114,7 +136,48 @@ class EqTriangle {
     );
   }
 
+  // debugging
   toString(): string {
     return `${this.leftPoint}  -- ${this.middlePoint} -- ${this.rightPoint}`;
+  }
+}
+
+class Circles {
+  readonly noteNames = [
+    "A𝄫", "E𝄫", "B𝄫", "F♭", "C♭", "G♭", "D♭",
+    "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F",
+    "E♭", "B♭", "F",  "C",  "G",  "D",  "A",
+    "G",  "D",  "A",  "E",  "B",  "F#", "C#",
+    "B",  "F#", "C#", "G#", "D#", "A#", "E#",
+    "D#", "A#", "E#", "B#", "F𝄪",  "C𝄪", "G𝄪"
+  ]
+
+  private readonly r = 30;
+
+  private sketch: p5;
+
+  constructor(sketch: p5) {
+    this.sketch = sketch;
+  }
+
+  draw(points: Point[]) {
+    this.sketch.noStroke();
+
+    for (let i = 0; i < points.length; i++) {
+      const point = points[i]
+
+      this.sketch.fill(300);
+      this.drawCircle(point);
+
+      this.sketch.fill(0);
+      this.sketch.textSize(18);
+      this.sketch.text(this.noteNames[i], point.x - 10, point.y + 5);
+    }
+
+    this.sketch.stroke(300);
+  }
+
+  drawCircle(point: Point) {
+    this.sketch.circle(point.x, point.y, this.r);
   }
 }
