@@ -10,10 +10,12 @@ class PositionManager {
   // managed
   readonly lattice: Lattice;
   readonly player: Player;
+  private sketch: p5;
 
   constructor(sketch: p5) {
     this.lattice = new Lattice(sketch, this.w, this.h);
     this.player  = new Player(sketch);
+    this.sketch = sketch;
   }
 
   // primary
@@ -76,6 +78,7 @@ class PositionManager {
     this.lattice.selectedX = this.x;
     this.lattice.selectedY = this.y;
     this.player.setTriPosition(this.x, this.y);
+    this.sketch.redraw();
   }
 
 

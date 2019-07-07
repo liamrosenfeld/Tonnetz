@@ -29,8 +29,6 @@ const s = (sketch: p5) => {
     }
 
     manager.update();
-
-    sketch.redraw();
   }
 };
 
