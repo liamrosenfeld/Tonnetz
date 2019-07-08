@@ -18,6 +18,11 @@ class PositionManager {
     this.sketch = sketch;
   }
 
+  teleport(x: Int, y: Int) {
+    this.x = x;
+    this.y = y;
+  }
+
   // primary
   leadingTone() {
     // move left
