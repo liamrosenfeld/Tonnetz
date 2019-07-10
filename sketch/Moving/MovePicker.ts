@@ -7,7 +7,7 @@ class MovePicker {
     this.manager = manager;
   }
 
-  addButtons() {
+  drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
 

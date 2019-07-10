@@ -1,7 +1,8 @@
 const s = (sketch: p5) => {
 
   let manager: PositionManager;
-  let picker: MovePicker;
+  let movePicker: MovePicker;
+  let demoPicker: DemoPicker;
 
   sketch.setup = () => {
     sketch.createCanvas(1300, 700);
@@ -9,8 +10,11 @@ const s = (sketch: p5) => {
     sketch.noLoop();
 
     manager = new PositionManager(sketch);
-    picker  = new MovePicker(sketch, manager);
-    picker.addButtons();
+    movePicker = new MovePicker(sketch, manager);
+    demoPicker = new DemoPicker(sketch, manager);
+  
+    movePicker.drawButtons();
+    demoPicker.drawButtons()
   };
 
   sketch.draw = () => {

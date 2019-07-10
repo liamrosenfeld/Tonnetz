@@ -20,7 +20,7 @@ class Circles {
     this.sketch.noStroke();
 
     for (let i = 0; i < points.length; i++) {
-      const point = points[i]
+      const point = points[i];
 
       this.sketch.fill(300);
       this.drawCircle(point);
