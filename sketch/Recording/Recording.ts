@@ -1,4 +1,4 @@
-class Recorded {
+class Recording {
 
   private manager: PositionManager;
 
@@ -15,12 +15,12 @@ class Recorded {
 
   // Playing Back
   playDemo(demo: Action[]) {
-    this.tempActions = demo;
+    this.tempActions = [...demo]; // duplicate
     this.play();
   }
 
   playBack() {
-    this.tempActions = this.actions;
+    this.tempActions = [...this.actions]; // duplicate
     this.play();
   }
 
@@ -55,6 +55,8 @@ class Recorded {
   private next = () => {
     if (this.tempActions.length > 0) {
       this.play();
+    } else {
+      console.log("Done.");
     }
   }
 
@@ -70,7 +72,7 @@ class Recorded {
     }
   }
 
-  // should abstract
+  // TODO: should abstract
   teleport(tele: Teleport) {
     this.manager.teleport(tele.x, tele.y);
     this.manager.update();

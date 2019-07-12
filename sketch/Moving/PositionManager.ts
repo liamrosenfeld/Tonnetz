@@ -10,14 +10,19 @@ class PositionManager {
   // managed
   readonly lattice: Lattice;
   readonly player: Player;
+  readonly recorder: Recorder;
+
+  // the sketch
   private sketch: p5;
 
   constructor(sketch: p5) {
-    this.lattice = new Lattice(sketch, this.w, this.h);
-    this.player  = new Player(sketch);
-    this.sketch = sketch;
+    this.lattice  = new Lattice(sketch, this.w, this.h);
+    this.player   = new Player(sketch);
+    this.recorder = new Recorder(sketch, this);
+    this.sketch   = sketch;
   }
 
+  // magical
   teleport(x: Int, y: Int) {
     this.x = x;
     this.y = y;
@@ -30,6 +35,8 @@ class PositionManager {
     if (this.x < 0) {
       this.x = this.w - 1;
     }
+
+    this.recorder.addMove(Move.LeadingTone);
   }
 
   parallel() {
@@ -43,6 +50,8 @@ class PositionManager {
       this.y +=1;
       this.x -= 1;
     }
+
+    this.recorder.addMove(Move.Parallel);
   }
 
   relative() {
@@ -51,6 +60,8 @@ class PositionManager {
     if (this.x >= this.w) {
       this.x = 0;
     }
+
+    this.recorder.addMove(Move.Relative);
   }
 
   // secondary
@@ -87,4 +98,7 @@ class PositionManager {
   }
 
 
+  // getters
+  get getX() { return this.x };
+  get getY() { return this.y };
 }

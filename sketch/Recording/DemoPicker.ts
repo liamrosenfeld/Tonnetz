@@ -24,7 +24,7 @@ class DemoPicker {
   }
 
   private brahms = () => {
-    const test = new Recorded(this.manager);
+    const test = new Recording(this.manager);
     test.playDemo(brahms102);
     return true;
   }
