@@ -1,8 +1,8 @@
 class Circles {
   readonly noteNames = [
-    "A𝄫", "E𝄫", "B𝄫", "F♭", "C♭", "G♭", "D♭",
-    "C♭", "G♭", "D♭", "A♭", "E♭", "B♭", "F",
-    "E♭", "B♭", "F",  "C",  "G",  "D",  "A",
+    "A𝄫", "E𝄫", "B𝄫", "Fb", "Cb", "Gb", "Db",
+    "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F",
+    "Eb", "Bb", "F",  "C",  "G",  "D",  "A",
     "G",  "D",  "A",  "E",  "B",  "F#", "C#",
     "B",  "F#", "C#", "G#", "D#", "A#", "E#",
     "D#", "A#", "E#", "B#", "F𝄪",  "C𝄪", "G𝄪"
@@ -27,7 +27,10 @@ class Circles {
 
       this.sketch.fill(0);
       this.sketch.textSize(18);
-      this.sketch.text(this.noteNames[i], point.x - 10, point.y + 5);
+      this.sketch.textAlign(this.sketch.CENTER, this.sketch.CENTER);
+      this.sketch.text(this.noteNames[i], point.x - this.r, point.y - this.r, this.r * 2, this.r * 2);
+      this.sketch.fill(0, 0, 300);
+      
     }
 
     this.sketch.stroke(300);

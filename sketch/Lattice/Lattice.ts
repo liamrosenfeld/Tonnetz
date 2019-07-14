@@ -20,7 +20,7 @@ class Lattice {
   // Drawing
   // mega function... whoops
   draw() {
-    let nextRowStart = new Point(10, 15); // padding
+    let nextRowStart = new Point(25, 25); // padding
     let points: Point[] = new Array();
     let tempPoints: Point[] = new Array();
     let tri: EqTriangle;
