@@ -7,7 +7,8 @@
             "label": "npm start",
             "type": "npm",
             "script": "start",
-            "group": "build"
+            "group": "build",
+            "problemMatcher": []
         },
         {
             "label": "npm dev",
@@ -16,7 +17,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         }
     ]
 }
