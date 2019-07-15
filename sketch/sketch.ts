@@ -36,8 +36,6 @@ const s = (sketch: p5) => {
       case 'c' : { manager.slide();         break};
       case 'v' : { manager.hexatonicPole(); break};
     }
-
-    manager.update();
   }
 };
 

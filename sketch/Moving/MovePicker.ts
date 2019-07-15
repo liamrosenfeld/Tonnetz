@@ -12,15 +12,15 @@ class MovePicker {
     this.sketch.textSize(20);
 
     this.sketch.text("Primary Operations", 1000, 100);
-    this.createButton("Leading Tone", 110, this.leadingTone);
-    this.createButton("Parallel", 150, this.parallel);
-    this.createButton("Relative", 190, this.relative);
+    this.createButton("Leading Tone", 110, this.manager.leadingTone);
+    this.createButton("Parallel", 150, this.manager.parallel);
+    this.createButton("Relative", 190, this.manager.relative);
 
     this.sketch.text("Compound Operations", 1000, 280)
-    this.createButton("Nebenverwandt Left (LLP)", 290, this.nebenLeft);
-    this.createButton("Nebenverwandt Right (RRP)", 330, this.nebenRight);
-    this.createButton("Slide (LPR)", 370, this.slide);
-    this.createButton("Haxatonic Pole (LPL)", 410, this.hexatonicPole);
+    this.createButton("Nebenverwandt Left (LLP)", 290, this.manager.nebenLeft);
+    this.createButton("Nebenverwandt Right (RRP)", 330, this.manager.nebenRight);
+    this.createButton("Slide (LPR)", 370, this.manager.slide);
+    this.createButton("Haxatonic Pole (LPL)", 410, this.manager.hexatonicPole);
 
     this.sketch.textSize(15);
     this.sketch.text("A", 1010, 129);
@@ -40,47 +40,5 @@ class MovePicker {
     button.style('width', '190px');
     button.style('text-align', 'left');
     button.mousePressed(callback);
-  }
-  
-  leadingTone = () => {
-    this.manager.leadingTone();
-    this.manager.update();
-    return true;
-  }
-
-  parallel = () => {
-    this.manager.parallel();
-    this.manager.update();
-    return true;
-  }
-
-  relative = () => {
-    this.manager.relative();
-    this.manager.update();
-    return true;
-  }
-
-  nebenLeft = () => {
-    this.manager.nebenLeft();
-    this.manager.update();
-    return true;
-  }
-
-  nebenRight = () => {
-    this.manager.nebenRight();
-    this.manager.update();
-    return true;
-  }
-
-  slide = () => {
-    this.manager.slide();
-    this.manager.update();
-    return true;
-  }
-
-  hexatonicPole = () => {
-    this.manager.hexatonicPole();
-    this.manager.update();
-    return true;
   }
 }

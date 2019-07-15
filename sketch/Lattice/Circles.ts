@@ -22,18 +22,18 @@ class Circles {
     for (let i = 0; i < points.length; i++) {
       const point = points[i];
 
-      this.sketch.fill(300);
+      this.sketch.fill(255);
       this.drawCircle(point);
 
       this.sketch.fill(0);
       this.sketch.textSize(18);
       this.sketch.textAlign(this.sketch.CENTER, this.sketch.CENTER);
       this.sketch.text(this.noteNames[i], point.x - this.r, point.y - this.r, this.r * 2, this.r * 2);
-      this.sketch.fill(0, 0, 300);
+      this.sketch.fill(0, 0, 255);
       
     }
 
-    this.sketch.stroke(300);
+    this.sketch.stroke(255);
   }
 
   drawCircle(point: Point) {

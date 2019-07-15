@@ -6,6 +6,8 @@ class Lattice {
   selectedX: Int = 0;
   selectedY: Int = 0;
 
+  error: boolean;
+
   private triSize = 100;
 
   private sketch: p5;
@@ -15,6 +17,7 @@ class Lattice {
     this.sketch = sketch;
     this.w = w;
     this.h = h;
+    this.error = false;
   }
 
   // Drawing
@@ -32,9 +35,13 @@ class Lattice {
       let up = false;
       tri = new EqTriangle(nextRowStart, this.triSize, up);
 
+      // get colors
+      const selectedColor = this.sketch.color(this.error ? "#b30000" : "	#A9A9A9");
+      const normalColor   = this.sketch.color(10);
+
       // color if selected
       const selected = (0 == this.selectedX && currentH == this.selectedY)
-      this.sketch.fill(selected ? 150 : 0);
+      this.sketch.fill(selected ? selectedColor : normalColor);
 
       // draw and setup next row
       tri.draw(this.sketch);
@@ -52,7 +59,7 @@ class Lattice {
 
         // color if selected
         const selected = (currentW == this.selectedX && currentH == this.selectedY)
-        this.sketch.fill(selected ? 150 : 0);
+        this.sketch.fill(selected ? selectedColor : normalColor);
 
         // draw and setup for next
         tri.draw(this.sketch);

@@ -37,7 +37,7 @@ class Recording {
 
       const tele = action as Teleport
       console.log("teleport: " + tele.x + ", " + tele.y);
-      this.teleport(tele);
+      this.manager.teleport(tele.x, tele.y);
       this.next();
 
     } else if (action as Move) {
@@ -62,54 +62,13 @@ class Recording {
 
   private matchMove(move: Move) {
     switch(move) {
-      case Move.LeadingTone : { this.leadingTone(); break }
-      case Move.Parallel    : { this.parallel(); break }
-      case Move.Relative    : { this.relative(); break }
-      case Move.NebenLeft   : { this.nebenLeft(); break }
-      case Move.NebenRight  : { this.nebenRight(); break }
-      case Move.Slide       : { this.slide(); break }
-      case Move.HexatonicPole  : { this.hexatonicPole(); break }
+      case Move.LeadingTone : { this.manager.leadingTone(); break }
+      case Move.Parallel    : { this.manager.parallel(); break }
+      case Move.Relative    : { this.manager.relative(); break }
+      case Move.NebenLeft   : { this.manager.nebenLeft(); break }
+      case Move.NebenRight  : { this.manager.nebenRight(); break }
+      case Move.Slide       : { this.manager.slide(); break }
+      case Move.HexatonicPole  : { this.manager.hexatonicPole(); break }
     }
-  }
-
-  // TODO: should abstract
-  teleport(tele: Teleport) {
-    this.manager.teleport(tele.x, tele.y);
-    this.manager.update();
-  }
-
-  leadingTone() {
-    this.manager.leadingTone();
-    this.manager.update();
-  }
-
-  parallel() {
-    this.manager.parallel();
-    this.manager.update();
-  }
-
-  relative() {
-    this.manager.relative();
-    this.manager.update();
-  }
-
-  nebenLeft() {
-    this.manager.nebenLeft();
-    this.manager.update();
-  }
-
-  nebenRight() {
-    this.manager.nebenRight();
-    this.manager.update();
-  }
-
-  slide() {
-    this.manager.slide();
-    this.manager.update();
-  }
-
-  hexatonicPole() {
-    this.manager.hexatonicPole();
-    this.manager.update();
   }
 }

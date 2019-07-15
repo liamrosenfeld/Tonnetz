@@ -1,4 +1,5 @@
 class PositionManager {
+  //// setup ////
   // size
   private w: Int = 12;
   private h: Int = 5;
@@ -12,7 +13,6 @@ class PositionManager {
   readonly player: Player;
   readonly recorder: Recorder;
 
-  // the sketch
   private sketch: p5;
 
   constructor(sketch: p5) {
@@ -20,18 +20,15 @@ class PositionManager {
     this.player   = new Player(sketch);
     this.recorder = new Recorder(sketch, this);
     this.sketch   = sketch;
+    this.update();
   }
 
-  // magical
-  teleport(x: Int, y: Int) {
-    this.x = x;
-    this.y = y;
-  }
-
+  //// private ////
   // primary
-  leadingTone() {
+  private _leadingTone() {
     // move left
     this.x -= 1;
+
     if (this.x < 0) {
       this.x = this.w - 1;
     }
@@ -39,24 +36,35 @@ class PositionManager {
     this.recorder.addMove(Move.LeadingTone);
   }
 
-  parallel() {
+  private _parallel = () => {
     // move vertically
+    let success = false;
+
     if (this.x % 2 == 0) {
-      if (this.y - 1 >= 0) {
+      // even (needs to check if would pass base)
+      if ((this.y - 1 >= 0)) {
         this.y -= 1;
         this.x += 1;
+        success = true;
       }
     } else if (this.y + 1 < this.h) {
+      // odd (needs to check if would pass top)
       this.y +=1;
       this.x -= 1;
+      success = true;
     }
 
-    this.recorder.addMove(Move.Parallel);
+    if (success) {
+      this.recorder.addMove(Move.Parallel)
+    }
+
+    return success;
   }
 
-  relative() {
+  private _relative() {
     // move right
     this.x += 1;
+
     if (this.x >= this.w) {
       this.x = 0;
     }
@@ -64,39 +72,119 @@ class PositionManager {
     this.recorder.addMove(Move.Relative);
   }
 
+  private moveOrDie(move: () => boolean): boolean {
+    // try move
+    const success = move();
+
+    // abort?
+    if (!success) {
+      // resets stored position to last update
+      this.revert();
+
+      // update lattice
+      this.lattice.error = true;
+      this.sketch.redraw();
+
+      // under after 200 milliseconds
+      setTimeout((function() {
+        this.lattice.error = false;
+        this.sketch.redraw();
+      }).bind(this), 200);
+    }
+
+    // pass on
+    return success;
+  }
+
+
   // secondary
-  nebenLeft() {
-    this.leadingTone();
-    this.leadingTone();
-    this.parallel();
+  private _nebenLeft() {
+    this._leadingTone();
+    this._leadingTone();
+    if (!this.moveOrDie(this._parallel)) { return }
+    this.update();
   }
 
-  nebenRight() {
-    this.relative();
-    this.relative();
-    this.parallel();
+  private _nebenRight() {
+    this._relative();
+    this._relative();
+    if (!this.moveOrDie(this._parallel)) { return }
+    this.update();
   }
 
-  slide() {
-    this.leadingTone();
-    this.parallel();
-    this.relative();
+  private _slide() {
+    this._leadingTone();
+    if (!this.moveOrDie(this._parallel)) { return }
+    this._relative();
+    this.update();
   }
 
-  hexatonicPole() {
-    this.leadingTone();
-    this.parallel();
-    this.leadingTone();
+  private _hexatonicPole() {
+    this._leadingTone();
+    if (!this.moveOrDie(this._parallel)) { return }
+    this._leadingTone();
+    this.update();
   }
 
-  // NOTE: MUST BE CALLED TO UPDATE MANAGED
-  update() {
+  // sync managed
+  private update() {
     this.lattice.selectedX = this.x;
     this.lattice.selectedY = this.y;
     this.player.setTriPosition(this.x, this.y);
+    this.lattice.error = false;
     this.sketch.redraw();
   }
 
+  private revert() {
+    this.x = this.lattice.selectedX;
+    this.y = this.lattice.selectedY;
+  }
+
+  //// public ///
+  leadingTone = () => {
+    this._leadingTone();
+    this.update();
+    return true;
+  }
+
+  parallel = () => {
+    if (this.moveOrDie(this._parallel)) {
+      this.update();
+    }
+    return true;
+  }
+
+  relative = () => {
+    this._relative();
+    this.update();
+    return true;
+  }
+
+  nebenLeft = () => {
+    this._nebenLeft();
+    return true;
+  }
+
+  nebenRight = () => {
+    this._nebenRight();
+    return true;
+  }
+
+  slide = () => {
+    this._slide();
+    return true;
+  }
+
+  hexatonicPole = () => {
+    this._hexatonicPole();
+    return true;
+  }
+
+  teleport(x: Int, y: Int) {
+    this.x = x;
+    this.y = y;
+    this.update();
+  }
 
   // getters
   get getX() { return this.x };

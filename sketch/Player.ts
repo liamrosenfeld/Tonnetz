@@ -4,16 +4,16 @@ class Player {
   private readonly midi: Int[][];
 
   private calcMidi(): Int[][] {
-    const rowStart = [43, 47, 51, 55, 59, 63];
-
     let midi: number[][] = new Array();
-    for (let row = 0; row < rowStart.length; row+=1) {
+    let rowStart = 43;
+    for (let row = 0; row < 6; row+=1) {
       midi.push([]);
-      midi[row].push(rowStart[row]);
+      midi[row].push(rowStart);
       for (let col = 1; col < 12; col+=1) {
-        const nextNote = rowStart[row] + (col * 7)
+        const nextNote = rowStart + (col * 7)
         midi[row].push(nextNote);
       }
+      rowStart += 4;
     }
     return midi
   }
