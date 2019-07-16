@@ -7,14 +7,12 @@ const s = (sketch: p5) => {
   let recoPicker: RecordingPicker;
 
   sketch.setup = () => {
-    sketch.createCanvas(1300, 700);
+    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.background(51);
     sketch.noLoop();
 
     manager = new PositionManager(sketch);
     
-    movePicker = new MovePicker(sketch, manager);
-    demoPicker = new DemoPicker(sketch, manager);
     movePicker = new MovePicker(sketch, manager, 300, 350);
     recoPicker = new RecordingPicker(sketch, manager, 600, 350);
     demoPicker = new DemoPicker(sketch, manager, 600, 525);
@@ -23,6 +21,21 @@ const s = (sketch: p5) => {
     demoPicker.drawButtons();
     recoPicker.drawButtons();
   };
+
+  sketch.windowResized = () => {
+    sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+    sketch.background(51);
+
+    movePicker.removeButtons();
+    demoPicker.removeButtons();
+    recoPicker.removeButtons();
+
+    movePicker.drawButtons();
+    demoPicker.drawButtons();
+    recoPicker.drawButtons();
+
+    sketch.redraw();
+  }
 
   sketch.draw = () => {
     manager.lattice.draw();

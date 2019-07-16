@@ -34,6 +34,12 @@ class RecordingPicker {
     this.playButton.attribute('disabled', '');
   }
 
+  removeButtons() {
+    this.startButton.remove();
+    this.stopButton.remove();
+    this.playButton.remove();
+  }
+
   createButton(text: string, y: number, callback: () => boolean): p5.Element {
     let button = this.sketch.createButton(text);
     button.position(this.x, y);
