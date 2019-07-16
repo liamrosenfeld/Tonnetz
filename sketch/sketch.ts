@@ -15,7 +15,9 @@ const s = (sketch: p5) => {
     
     movePicker = new MovePicker(sketch, manager);
     demoPicker = new DemoPicker(sketch, manager);
-    recoPicker = new RecordingPicker(sketch, manager);
+    movePicker = new MovePicker(sketch, manager, 300, 350);
+    recoPicker = new RecordingPicker(sketch, manager, 600, 350);
+    demoPicker = new DemoPicker(sketch, manager, 600, 525);
   
     movePicker.drawButtons();
     demoPicker.drawButtons();

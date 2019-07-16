@@ -17,6 +17,7 @@ class PositionManager {
 
   constructor(sketch: p5) {
     const midi = Midi.calcMidi(this.w, this.h);
+
     this.lattice  = new Lattice(sketch, this.w, this.h, midi);
     this.player   = new Player(sketch, midi);
     this.recorder = new Recorder(sketch, this);

@@ -21,7 +21,7 @@ class Player {
 
   createButton() {
     this.button = this.sketch.createButton("Play");
-    this.button.position(1000, 25);
+    this.button.position(50, 400);
     this.button.style('font-size', '12px');
     this.button.style('padding', '5px');
     this.button.style('width', '190px');
