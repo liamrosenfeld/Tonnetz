@@ -6,18 +6,21 @@ class Lattice {
   selectedX: Int = 0;
   selectedY: Int = 0;
 
+  private circles: Circles;
+
   error: boolean;
 
-  private triSize = 100;
+  private readonly triSize = 100;
 
   private sketch: p5;
 
   // Init
-  constructor(sketch: p5, w: Int, h: Int) {
+  constructor(sketch: p5, w: Int, h: Int, midi: Int[][]) {
     this.sketch = sketch;
     this.w = w;
     this.h = h;
     this.error = false;
+    this.circles = new Circles(sketch, midi);
   }
 
   // Drawing
@@ -79,8 +82,7 @@ class Lattice {
       }
 
       points = points.concat(tempPoints);
-      let circles = new Circles(this.sketch)
-      circles.draw(points);
+      this.circles.draw(points);
     }
   }
 }

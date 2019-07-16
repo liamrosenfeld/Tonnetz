@@ -2,7 +2,7 @@ class PositionManager {
   //// setup ////
   // size
   private w: Int = 12;
-  private h: Int = 5;
+  private h: Int = 4;
 
   // selected
   private x: Int = 0;
@@ -16,8 +16,9 @@ class PositionManager {
   private sketch: p5;
 
   constructor(sketch: p5) {
-    this.lattice  = new Lattice(sketch, this.w, this.h);
-    this.player   = new Player(sketch);
+    const midi = Midi.calcMidi(this.w, this.h);
+    this.lattice  = new Lattice(sketch, this.w, this.h, midi);
+    this.player   = new Player(sketch, midi);
     this.recorder = new Recorder(sketch, this);
     this.sketch   = sketch;
     this.update();
@@ -95,7 +96,6 @@ class PositionManager {
     // pass on
     return success;
   }
-
 
   // secondary
   private _nebenLeft() {

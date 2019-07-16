@@ -1,33 +1,17 @@
 class Player {
-  
-  // MIDI Values
-  private readonly midi: Int[][];
 
-  private calcMidi(): Int[][] {
-    let midi: number[][] = new Array();
-    let rowStart = 43;
-    for (let row = 0; row < 6; row+=1) {
-      midi.push([]);
-      midi[row].push(rowStart);
-      for (let col = 1; col < 12; col+=1) {
-        const nextNote = rowStart + (col * 7)
-        midi[row].push(nextNote);
-      }
-      rowStart += 4;
-    }
-    return midi
-  }
-  
   // Init
   private osc1 = new p5.SinOsc();
   private osc2 = new p5.SinOsc();
   private osc3 = new p5.SinOsc();
 
+  private readonly midi: Int[][];
+
   private sketch: p5;
 
-  constructor(sketch: p5) {
+  constructor(sketch: p5, midi: Int[][]) {
     this.sketch = sketch;
-    this.midi = this.calcMidi();
+    this.midi = midi;
     this.createButton();
   }
 
@@ -74,7 +58,7 @@ class Player {
   // modifications
   setTriPosition(x: Int, y: Int) {
     const major = (x % 2 == 0);
-    const root  = major ? this.midi[y][Math.floor(x/2)] : this.midi[y+1][Math.floor(x/2)];
+    const root  = this.midi[major ? y : y+1][Math.floor(x/2)];
     const third = root + (major ? 4 : 3);
     const fifth = root + 7;
 
