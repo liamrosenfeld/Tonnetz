@@ -2,7 +2,7 @@ class PositionManager {
   //// setup ////
   // size
   private w: Int = 12;
-  private h: Int = 4;
+  private h: Int = 3;
 
   // selected
   private x: Int = 0;
@@ -121,9 +121,10 @@ class PositionManager {
   }
 
   parallel = () => {
-    this._parallel()
-    this.update();
-    this.recorder.addMove(Move.Parallel)
+    if (this.moveOrDie(this._parallel)) {
+      this.update();
+      this.recorder.addMove(Move.Parallel);
+    }
     return true;
   }
 
@@ -138,7 +139,7 @@ class PositionManager {
   nebenLeft = () => {
     if (!this.moveOrDie(this._leadingTone)) { return }
     if (!this.moveOrDie(this._leadingTone)) { return }
-    this._parallel();
+    if (!this.moveOrDie(this._parallel)) { return }
 
     this.update();
     this.recorder.addMove(Move.NebenLeft);
@@ -148,7 +149,7 @@ class PositionManager {
   nebenRight = () => {
     if (!this.moveOrDie(this._relative)) { return }
     if (!this.moveOrDie(this._relative)) { return }
-    this._parallel();
+    if (!this.moveOrDie(this._parallel)) { return }
 
     this.update();
     this.recorder.addMove(Move.NebenRight);
@@ -157,7 +158,7 @@ class PositionManager {
 
   slide = () => {
     if (!this.moveOrDie(this._leadingTone)) { return }
-    this._parallel();
+    if (!this.moveOrDie(this._parallel)) { return }
     if (!this.moveOrDie(this._relative)) { return }
 
     this.update();
@@ -167,7 +168,7 @@ class PositionManager {
 
   hexatonicPole = () => {
     if (!this.moveOrDie(this._leadingTone)) { return }
-    this._parallel();
+    if (!this.moveOrDie(this._parallel)) { return }
     if (!this.moveOrDie(this._leadingTone)) { return }
 
     this.update();

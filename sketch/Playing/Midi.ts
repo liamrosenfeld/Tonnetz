@@ -7,13 +7,13 @@ class Midi {
     let midi: number[][] = new Array();
     let rowStart = 47; // B2
 
-    for (let row = 0; row < h + 1; row += 1) {
+    for (let row = 0; row <= h; row += 1) {
       // fist note in row
       midi.push([]); 
       midi[row].push(rowStart);
 
       // rest of row
-      for (let col = 1; col < w; col += 1) {
+      for (let col = 1; col <= Math.floor(w / 2); col += 1) {
         const nextNote = rowStart + ((col * fifth) % 12)
         midi[row].push(nextNote);
       }
@@ -21,7 +21,6 @@ class Midi {
       // next row value
       rowStart += majThird;
     }
-
     return midi;
   }
 
