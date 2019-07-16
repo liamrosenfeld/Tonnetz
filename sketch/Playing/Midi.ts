@@ -1,23 +1,25 @@
 class Midi {
 
   static calcMidi(w: Int, h: Int): Int[][] {
-    let midi: number[][] = new Array();
+    const fifth = 7
+    const majThird = 4
 
+    let midi: number[][] = new Array();
     let rowStart = 47; // B2
 
     for (let row = 0; row < h + 1; row += 1) {
       // fist note in row
-      midi.push([]);
+      midi.push([]); 
       midi[row].push(rowStart);
 
       // rest of row
       for (let col = 1; col < w; col += 1) {
-        const nextNote = rowStart + (col * 7) // perfect 5th
+        const nextNote = rowStart + ((col * fifth) % 12)
         midi[row].push(nextNote);
       }
 
       // next row value
-      rowStart += 4; // major 3rd
+      rowStart += majThird;
     }
 
     return midi;

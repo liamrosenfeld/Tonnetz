@@ -24,7 +24,7 @@ class Recorder {
     this.recording.add(startLoc);
   }
 
-  addMove(move: Move) {
+  addMove(move: Action) {
     if (!this.isRecording) { return };
 
     // find wait (since last action)

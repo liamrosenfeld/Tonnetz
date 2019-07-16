@@ -26,51 +26,51 @@ class PositionManager {
 
   //// private ////
   // primary
-  private _leadingTone() {
+  private _leadingTone = () => {
     // move left
     this.x -= 1;
 
     if (this.x < 0) {
-      this.x = this.w - 1;
+      return false;
     }
 
-    this.recorder.addMove(Move.LeadingTone);
+    return true
   }
 
   private _parallel = () => {
     // move vertically
-    let success = false;
-
     if (this.x % 2 == 0) {
-      // even (needs to check if would pass base)
-      if ((this.y - 1 >= 0)) {
+      // even (needs to check if would pass top)
+      if (this.y - 1 >= 0) {
         this.y -= 1;
         this.x += 1;
-        success = true;
+      } else {
+        this.y = this.h - 1;
+        this.x += 1;
       }
-    } else if (this.y + 1 < this.h) {
-      // odd (needs to check if would pass top)
-      this.y +=1;
-      this.x -= 1;
-      success = true;
+    } else {
+      // odd (needs to check if would pass base)
+      if (this.y + 1 < this.h) {
+        this.y += 1;
+        this.x -= 1;
+      } else {
+        this.y = 0;
+        this.x -= 1;
+      }
     }
 
-    if (success) {
-      this.recorder.addMove(Move.Parallel)
-    }
-
-    return success;
+    return true;
   }
 
-  private _relative() {
+  private _relative = () => {
     // move right
     this.x += 1;
 
     if (this.x >= this.w) {
-      this.x = 0;
+      return false;
     }
 
-    this.recorder.addMove(Move.Relative);
+    return true
   }
 
   private moveOrDie(move: () => boolean): boolean {
@@ -97,35 +97,6 @@ class PositionManager {
     return success;
   }
 
-  // secondary
-  private _nebenLeft() {
-    this._leadingTone();
-    this._leadingTone();
-    if (!this.moveOrDie(this._parallel)) { return }
-    this.update();
-  }
-
-  private _nebenRight() {
-    this._relative();
-    this._relative();
-    if (!this.moveOrDie(this._parallel)) { return }
-    this.update();
-  }
-
-  private _slide() {
-    this._leadingTone();
-    if (!this.moveOrDie(this._parallel)) { return }
-    this._relative();
-    this.update();
-  }
-
-  private _hexatonicPole() {
-    this._leadingTone();
-    if (!this.moveOrDie(this._parallel)) { return }
-    this._leadingTone();
-    this.update();
-  }
-
   // sync managed
   private update() {
     this.lattice.selectedX = this.x;
@@ -142,48 +113,74 @@ class PositionManager {
 
   //// public ///
   leadingTone = () => {
-    this._leadingTone();
-    this.update();
-    return true;
-  }
-
-  parallel = () => {
-    if (this.moveOrDie(this._parallel)) {
+    if (this.moveOrDie(this._leadingTone)) {
       this.update();
+      this.recorder.addMove(Move.LeadingTone);
     }
     return true;
   }
 
-  relative = () => {
-    this._relative();
+  parallel = () => {
+    this._parallel()
     this.update();
+    this.recorder.addMove(Move.Parallel)
+    return true;
+  }
+
+  relative = () => {
+    if (this.moveOrDie(this._relative)) {
+      this.update();
+      this.recorder.addMove(Move.Relative);
+    }
     return true;
   }
 
   nebenLeft = () => {
-    this._nebenLeft();
+    if (!this.moveOrDie(this._leadingTone)) { return }
+    if (!this.moveOrDie(this._leadingTone)) { return }
+    this._parallel();
+
+    this.update();
+    this.recorder.addMove(Move.NebenLeft);
     return true;
   }
 
   nebenRight = () => {
-    this._nebenRight();
+    if (!this.moveOrDie(this._relative)) { return }
+    if (!this.moveOrDie(this._relative)) { return }
+    this._parallel();
+
+    this.update();
+    this.recorder.addMove(Move.NebenRight);
     return true;
   }
 
   slide = () => {
-    this._slide();
+    if (!this.moveOrDie(this._leadingTone)) { return }
+    this._parallel();
+    if (!this.moveOrDie(this._relative)) { return }
+
+    this.update();
+    this.recorder.addMove(Move.Slide);
     return true;
   }
 
   hexatonicPole = () => {
-    this._hexatonicPole();
+    if (!this.moveOrDie(this._leadingTone)) { return }
+    this._parallel();
+    if (!this.moveOrDie(this._leadingTone)) { return }
+
+    this.update();
+    this.recorder.addMove(Move.HexatonicPole);
     return true;
   }
 
   teleport(x: Int, y: Int) {
     this.x = x;
     this.y = y;
+
     this.update();
+    this.recorder.addMove({x: x, y: y});
   }
 
   // getters
