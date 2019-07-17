@@ -27,8 +27,8 @@ app.get("/about", function(req, res) {
   res.sendFile(path.join(htmlDir, "about.html"));
 });
 
-app.get("*", function(req, res){
-  res.status(404).send("404 Error - Page Not Found");
+app.get("*", function(req, res) {
+  res.status(404).sendFile(path.join(htmlDir, "404.html"))
 });
   
 // listen
