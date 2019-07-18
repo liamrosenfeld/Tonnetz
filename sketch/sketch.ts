@@ -1,6 +1,7 @@
 const s = (sketch: p5) => {
 
   let manager: PositionManager;
+  let sizeManager: SizeManager;
   
   let movePicker: MovePicker;
   let demoPicker: DemoPicker;
@@ -11,7 +12,8 @@ const s = (sketch: p5) => {
     sketch.background(51);
     sketch.noLoop();
 
-    manager = new PositionManager(sketch);
+    sizeManager = new SizeManager(sketch);
+    manager = new PositionManager(sketch, sizeManager);
     
     movePicker = new MovePicker(sketch, manager, 300, 350);
     recoPicker = new RecordingPicker(sketch, manager, 600, 350);
@@ -26,6 +28,8 @@ const s = (sketch: p5) => {
     sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.background(51);
 
+    sketch.clear();
+
     movePicker.removeButtons();
     demoPicker.removeButtons();
     recoPicker.removeButtons();
@@ -33,8 +37,11 @@ const s = (sketch: p5) => {
     movePicker.drawButtons();
     demoPicker.drawButtons();
     recoPicker.drawButtons();
+    
+    sizeManager.calcSizes()
+    manager.newSize();
 
-    sketch.redraw();
+    manager.lattice.draw();
   }
 
   sketch.draw = () => {

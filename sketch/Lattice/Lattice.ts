@@ -2,6 +2,9 @@ class Lattice {
   // properties
   private w: Int;
   private h: Int;
+  private triSize: Float;
+
+  private sizeManager: SizeManager;
 
   selectedX: Int = 0;
   selectedY: Int = 0;
@@ -10,17 +13,30 @@ class Lattice {
 
   error: boolean;
 
-  private readonly triSize = 100;
-
   private sketch: p5;
 
   // Init
-  constructor(sketch: p5, w: Int, h: Int, midi: Int[][]) {
+  constructor(sketch: p5, sizeManager: SizeManager) {
     this.sketch = sketch;
-    this.w = w;
-    this.h = h;
+    this.sizeManager = sizeManager;
+
+    this.w = this.sizeManager.w;
+    this.h = this.sizeManager.h;
+    this.triSize = this.sizeManager.triSize;
+
     this.error = false;
+
+    const midi = Midi.calcMidi(sizeManager.w, sizeManager.h);
     this.circles = new Circles(sketch, midi);
+  }
+
+  newSize() {
+    this.w = this.sizeManager.w;
+    this.h = this.sizeManager.h;
+    this.triSize = this.sizeManager.triSize;
+
+    const midi = Midi.calcMidi(this.sizeManager.w, this.sizeManager.h);
+    this.circles = new Circles(this.sketch, midi);
   }
 
   // Drawing

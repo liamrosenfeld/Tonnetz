@@ -5,7 +5,7 @@ class Player {
   private osc2 = new p5.SinOsc();
   private osc3 = new p5.SinOsc();
 
-  private readonly midi: Int[][];
+  midi: Int[][];
 
   private sketch: p5;
 

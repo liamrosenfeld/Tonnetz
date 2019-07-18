@@ -3,6 +3,7 @@ class PositionManager {
   // size
   private w: Int = 12;
   private h: Int = 3;
+  private sizeManager: SizeManager;
 
   // selected
   private x: Int = 0;
@@ -15,13 +16,34 @@ class PositionManager {
 
   private sketch: p5;
 
-  constructor(sketch: p5) {
+  constructor(sketch: p5, sizeManager: SizeManager) {
+    this.w = sizeManager.w;
+    this.h = sizeManager.h;
+
     const midi = Midi.calcMidi(this.w, this.h);
 
-    this.lattice  = new Lattice(sketch, this.w, this.h, midi);
+    this.lattice  = new Lattice(sketch, sizeManager);
     this.player   = new Player(sketch, midi);
     this.recorder = new Recorder(sketch, this);
-    this.sketch   = sketch;
+
+    this.sketch      = sketch;
+    this.sizeManager = sizeManager;
+
+    this.update();
+  }
+
+  newSize() {
+    // update sizes
+    this.w = this.sizeManager.w;
+    this.h = this.sizeManager.h;
+
+    // update managed
+    this.lattice.newSize(); // already connected to sizeManager
+    this.player.midi = Midi.calcMidi(this.w, this.h);
+
+    // reset location
+    this.x = 0;
+    this.y = 0;
     this.update();
   }
 
