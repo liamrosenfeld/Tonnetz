@@ -1,7 +1,7 @@
 const enum Move {
-  LeadingTone = "LeadingTone",
+  Left = "Left",
   Parallel = "Parallel",
-  Relative = "Relative",
+  Right = "Right",
   NebenLeft = "NebenLeft",
   NebenRight = "NebenRight",
   Slide = "Slide",

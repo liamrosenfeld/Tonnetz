@@ -6,13 +6,13 @@ const brahms102: Action[] = [
   wait,
   Move.Parallel,
   wait,
-  Move.LeadingTone,
+  Move.Left,
   wait,
   Move.Parallel,
   wait,
-  Move.LeadingTone,
+  Move.Left,
   wait,
   Move.Parallel,
   wait,
-  Move.LeadingTone
+  Move.Left
 ]

@@ -5,10 +5,12 @@ class Midi {
     const majThird = 4
 
     let midi: number[][] = new Array();
-    let rowStart = 47; // B2
+
+    const topLeft = 47 ; // B2
 
     for (let row = 0; row <= h; row += 1) {
       // fist note in row
+      const rowStart = topLeft + ((row * majThird) % 12); // B2
       midi.push([]); 
       midi[row].push(rowStart);
 
@@ -17,10 +19,8 @@ class Midi {
         const nextNote = rowStart + ((col * fifth) % 12)
         midi[row].push(nextNote);
       }
-
-      // next row value
-      rowStart += majThird;
     }
+
     return midi;
   }
 

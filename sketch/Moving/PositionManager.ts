@@ -1,8 +1,9 @@
 class PositionManager {
   //// setup ////
   // size
-  private w: Int = 12;
-  private h: Int = 3;
+  private w: Int;
+  private h: Int;
+
   private sizeManager: SizeManager;
 
   // selected
@@ -10,9 +11,10 @@ class PositionManager {
   private y: Int = 0;
 
   // managed
-  readonly lattice: Lattice;
-  readonly player: Player;
-  readonly recorder: Recorder;
+  lattice:  Lattice;
+  player:   Player;
+  pitches:  Pitches;
+  recorder: Recorder;
 
   private sketch: p5;
 
@@ -20,16 +22,20 @@ class PositionManager {
     this.w = sizeManager.w;
     this.h = sizeManager.h;
 
-    const midi = Midi.calcMidi(this.w, this.h);
+    this.x = sizeManager.centerX;
+    this.y = sizeManager.centerY;
 
     this.lattice  = new Lattice(sketch, sizeManager);
-    this.player   = new Player(sketch, midi);
+    this.player   = new Player(sketch);
+    this.pitches  = new Pitches(Midi.calcMidi(this.w, this.h));
     this.recorder = new Recorder(sketch, this);
 
     this.sketch      = sketch;
     this.sizeManager = sizeManager;
 
-    this.update();
+    this.pitches.resetTo(this.x, this.y);
+
+    this.update();s
   }
 
   newSize() {
@@ -39,30 +45,65 @@ class PositionManager {
 
     // update managed
     this.lattice.newSize(); // already connected to sizeManager
-    this.player.midi = Midi.calcMidi(this.w, this.h);
+    this.pitches.midi = Midi.calcMidi(this.w, this.h);
+    this.pitches.resetTo(this.x, this.y);
 
     // reset location
-    this.x = 0;
-    this.y = 0;
+    this.x = this.sizeManager.centerX;
+    this.y = this.sizeManager.centerY;
     this.update();
   }
 
   //// private ////
+  // sync managed
+  private backupX: Int;
+  private backupY: Int;
+  private backupRoot: Int;
+  private backupThird: Int;
+  private backupFifth: Int;
+
+  private update() {
+    // backup
+    this.backupX = this.x;
+    this.backupY = this.y;
+    this.backupRoot  = this.pitches.getRoot;
+    this.backupThird = this.pitches.getThird;
+    this.backupFifth = this.pitches.getFifth;
+
+    // update
+    this.lattice.selectedX = this.x;
+    this.lattice.selectedY = this.y;
+    this.player.setPitches(this.pitches);
+    this.lattice.error = false;
+    this.sketch.redraw();
+  }
+
+  private revert() {
+    this.x = this.backupX;
+    this.y = this.backupY;
+
+    this.pitches.override(this.backupRoot, this.backupThird, this.backupFifth);
+  }
+
   // primary
+  major(): boolean { return this.x % 2 == 0 };
+
   private _leadingTone = () => {
-    // move left
-    this.x -= 1;
+    this.pitches.leadingTone(this.major());
 
-    if (this.x < 0) {
-      return false;
-    }
+    this.x += this.major() ? 1 : -1;
 
-    return true
+    console.log("leading tone");
+
+    return this.x >= 0 && this.x < this.w;
   }
 
   private _parallel = () => {
     // move vertically
-    if (this.x % 2 == 0) {
+    this.pitches.parallel(this.major());
+
+
+    if (this.major()) {
       // even (needs to check if would pass top)
       if (this.y - 1 >= 0) {
         this.y -= 1;
@@ -82,18 +123,19 @@ class PositionManager {
       }
     }
 
+    console.log("parallel");
+
     return true;
   }
 
   private _relative = () => {
-    // move right
-    this.x += 1;
+    this.pitches.relative(this.major());
 
-    if (this.x >= this.w) {
-      return false;
-    }
+    this.x += this.major() ? -1 : 1;
 
-    return true
+    console.log("relative");
+
+    return this.x >= 0 && this.x < this.w;
   }
 
   private moveOrDie(move: () => boolean): boolean {
@@ -109,7 +151,7 @@ class PositionManager {
       this.lattice.error = true;
       this.sketch.redraw();
 
-      // under after 200 milliseconds
+      // undo after 200 milliseconds
       setTimeout((function() {
         this.lattice.error = false;
         this.sketch.redraw();
@@ -120,27 +162,38 @@ class PositionManager {
     return success;
   }
 
-  // sync managed
-  private update() {
-    this.lattice.selectedX = this.x;
-    this.lattice.selectedY = this.y;
-    this.player.setTriPosition(this.x, this.y);
-    this.lattice.error = false;
-    this.sketch.redraw();
-  }
-
-  private revert() {
-    this.x = this.lattice.selectedX;
-    this.y = this.lattice.selectedY;
-  }
-
-  //// public ///
-  leadingTone = () => {
-    if (this.moveOrDie(this._leadingTone)) {
-      this.update();
-      this.recorder.addMove(Move.LeadingTone);
-    }
+  // secondary
+  private _nebenRLP = () => {
+    if (!this.moveOrDie(this._relative))    { return false }
+    if (!this.moveOrDie(this._leadingTone)) { return false }
+    if (!this.moveOrDie(this._parallel))    { return false }
     return true;
+  }
+
+  private _nebenPRL = () => {
+    if (!this.moveOrDie(this._parallel))    { return false }
+    if (!this.moveOrDie(this._relative))    { return false }
+    if (!this.moveOrDie(this._leadingTone)) { return false }
+    return true;
+  }
+
+  //// public ////
+  left = () => {
+    let success = false;
+    if (this.major()) {
+      // major (even)
+      success = this.moveOrDie(this._relative);
+    } else {
+      // minor (odd)
+      success = this.moveOrDie(this._leadingTone);
+    }
+
+    if (success) {
+      this.update();
+      this.recorder.addMove(Move.Left);
+    }
+    
+    return success;
   }
 
   parallel = () => {
@@ -151,31 +204,53 @@ class PositionManager {
     return true;
   }
 
-  relative = () => {
-    if (this.moveOrDie(this._relative)) {
-      this.update();
-      this.recorder.addMove(Move.Relative);
+  right = () => {
+    let success = false;
+    if (this.major()) {
+      // major (even)
+      success = this.moveOrDie(this._leadingTone);
+    } else {
+      // minor (odd)
+      success = this.moveOrDie(this._relative);
     }
-    return true;
+
+    if (success) {
+      this.update();
+      this.recorder.addMove(Move.Right);
+    }
+    
+    return success;
   }
 
   nebenLeft = () => {
-    if (!this.moveOrDie(this._leadingTone)) { return }
-    if (!this.moveOrDie(this._leadingTone)) { return }
-    if (!this.moveOrDie(this._parallel)) { return }
+    let success = false; 
+    if (this.major()) {
+      success = this._nebenRLP();
+    } else {
+      success = this._nebenPRL();
+    }
 
-    this.update();
-    this.recorder.addMove(Move.NebenLeft);
+    if (success) {
+      this.update();
+      this.recorder.addMove(Move.NebenLeft);
+    }
+    
     return true;
   }
 
   nebenRight = () => {
-    if (!this.moveOrDie(this._relative)) { return }
-    if (!this.moveOrDie(this._relative)) { return }
-    if (!this.moveOrDie(this._parallel)) { return }
+    let success = false; 
+    if (this.major()) {
+      success = this._nebenPRL();
+    } else {
+      success = this._nebenRLP();
+    }
 
-    this.update();
-    this.recorder.addMove(Move.NebenRight);
+    if (success) {
+      this.update();
+      this.recorder.addMove(Move.NebenRight);
+    }
+
     return true;
   }
 
@@ -202,6 +277,8 @@ class PositionManager {
   teleport(x: Int, y: Int) {
     this.x = x;
     this.y = y;
+
+    this.pitches.resetTo(x, y);
 
     this.update();
     this.recorder.addMove({x: x, y: y});

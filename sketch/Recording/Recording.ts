@@ -62,12 +62,12 @@ class Recording {
 
   private matchMove(move: Move) {
     switch(move) {
-      case Move.LeadingTone : { this.manager.leadingTone(); break }
-      case Move.Parallel    : { this.manager.parallel(); break }
-      case Move.Relative    : { this.manager.relative(); break }
-      case Move.NebenLeft   : { this.manager.nebenLeft(); break }
-      case Move.NebenRight  : { this.manager.nebenRight(); break }
-      case Move.Slide       : { this.manager.slide(); break }
+      case Move.Left           : { this.manager.left(); break }
+      case Move.Parallel       : { this.manager.parallel(); break }
+      case Move.Right          : { this.manager.right(); break }
+      case Move.NebenLeft      : { this.manager.nebenLeft(); break }
+      case Move.NebenRight     : { this.manager.nebenRight(); break }
+      case Move.Slide          : { this.manager.slide(); break }
       case Move.HexatonicPole  : { this.manager.hexatonicPole(); break }
     }
   }
