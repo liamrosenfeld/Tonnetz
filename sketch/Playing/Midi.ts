@@ -24,10 +24,18 @@ class Midi {
     return midi;
   }
 
-  static nameFromMidi(value: Int): string {
+  static cleanName(value: Int): string {
     const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     const noteValue = value % 12;
     const noteName  = noteNames[noteValue];
+    return noteName;
+  }
+
+  static fullName(value: Int): string {
+    const noteNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    const noteValue = value % 12;
+    const octave    = Math.floor(value / 12) - 1;
+    const noteName  = noteNames[noteValue] + octave;
     return noteName;
   }
 

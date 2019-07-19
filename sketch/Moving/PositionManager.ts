@@ -26,8 +26,8 @@ class PositionManager {
     this.y = sizeManager.centerY;
 
     this.lattice  = new Lattice(sketch, sizeManager);
-    this.player   = new Player(sketch);
     this.pitches  = new Pitches(Midi.calcMidi(this.w, this.h));
+    this.player   = new Player(this.pitches);
     this.recorder = new Recorder(sketch, this);
 
     this.sketch      = sketch;
@@ -73,7 +73,7 @@ class PositionManager {
     // update
     this.lattice.selectedX = this.x;
     this.lattice.selectedY = this.y;
-    this.player.setPitches(this.pitches);
+    this.player.setPitches();
     this.lattice.error = false;
     this.sketch.redraw();
   }

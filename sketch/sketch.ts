@@ -12,7 +12,8 @@ const s = (sketch: p5) => {
 
   sketch.setup = () => {
     // create canvas
-    sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+    let canvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+    canvas.parent('sketch-holder')
     sketch.background(51);
     sketch.noLoop();
 
@@ -71,7 +72,8 @@ const s = (sketch: p5) => {
   };
 
   sketch.keyPressed = () => {
-    switch(sketch.key) {
+    const key = sketch.key.toLowerCase();
+    switch(key) {
       case 'a' : { manager.left();          break};
       case 's' : { manager.parallel();      break};
       case 'd' : { manager.right();         break};

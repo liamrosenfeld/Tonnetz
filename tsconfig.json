@@ -4,10 +4,10 @@
     "removeComments": true,
     "preserveConstEnums": true,
     "outFile": "./build/build.js",
-    "sourceRoot": "./sketch/",
     "rootDir": "./sketch/",
     "sourceMap": true,
     "noImplicitAny": true,
-    "module": "none"
+    "module": "none",
+    "moduleResolution": "node",
   }
 }

@@ -30,7 +30,7 @@ class Circles {
 
       // note name
       const midiValue = midiValues.shift();
-      const noteName  = Midi.nameFromMidi(midiValue);
+      const noteName  = Midi.cleanName(midiValue);
 
       // draw note name
       this.sketch.text(noteName, point.x - this.r, point.y - this.r, this.r * 2, this.r * 2);

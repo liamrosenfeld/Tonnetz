@@ -67,9 +67,9 @@ class Pitches {
 
   toString() {
     return `
-    root:  ${this.root} (${Midi.nameFromMidi(this.root)})
-    third: ${this.third} (${Midi.nameFromMidi(this.third)})
-    fifth: ${this.fifth} (${Midi.nameFromMidi(this.fifth)})
+    root:  ${this.root} (${Midi.fullName(this.root)})
+    third: ${this.third} (${Midi.fullName(this.third)})
+    fifth: ${this.fifth} (${Midi.fullName(this.fifth)})
     `;
   }
 }

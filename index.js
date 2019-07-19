@@ -4,11 +4,12 @@ const path = require("path");
 
 // constants
 const app = express();
-const port = 8080
-const htmlDir = path.join(__dirname, "pages")
+const port = 8080;
+const htmlDir = path.join(__dirname, "pages");
 
 // static resources
-app.use("/build", express.static("build"))
+app.use("/build", express.static("build"));
+app.use("/samples", express.static("samples"));
 
 // routes
 app.get("/", function(req, res) {
