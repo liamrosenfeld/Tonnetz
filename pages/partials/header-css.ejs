@@ -1,0 +1,83 @@
+<style>
+  /* Nav Bar */
+  .nav-bar {
+    overflow: hidden;
+    background-color: #222222;
+    display: block;
+  }
+
+  .nav-bar a {
+    float: left;
+    display: block;
+    color: #cacaca;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+
+  .nav-bar h1 {
+    float: left;
+    display: block;
+    color: #cacaca;
+    font-size: 17px;
+    padding-top: 14px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .nav-bar .divider {
+    float: left;
+    display: block;
+    color: #cacaca;
+    font-size: 17px;
+    padding-top: 14px;
+    padding-right: 10px;
+  }
+
+  .nav-bar a:hover {
+    color: #fafafa;
+  }
+
+  .nav-bar .icon {
+    display: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    /* Both Hidden and Shown (except when overridden) */
+    .nav-bar .nav-options {
+      display: none;
+    }
+
+    .nav-bar a.icon {
+      float: right;
+      display: block;
+    }
+
+    .nav-bar .divider {
+      display: none;
+    }
+
+    /* Override when Shown */
+    .nav-bar.mobile-show {
+      position: relative;
+    }
+
+    .nav-bar.mobile-show .nav-options {
+      display: block;
+      float:left;
+      position: absolute;
+      top: 40px;
+      left: 20px;
+    }
+
+    .nav-bar.mobile-show {
+      height: 190px;
+    }
+
+    .nav-bar.mobile-show .nav-options a {
+      float: none;
+      text-align: left;
+    }
+  }
+</style>

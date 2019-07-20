@@ -25,6 +25,7 @@ class DemoPicker {
 
   createButton(text: string, y: number, callback: () => boolean): p5.Element {
     let button = this.sketch.createButton(text);
+    button.parent("sketch-holder");
     button.position(this.x, y);
     button.style('font-size', '12px');
     button.style('padding', '5px');

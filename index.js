@@ -3,9 +3,12 @@ const express = require("express");
 const path = require("path");
 
 // constants
-const app = express();
 const port = 8080;
-const htmlDir = path.join(__dirname, "pages");
+const pagesDir = path.join(__dirname, "pages");
+
+// configure app
+const app = express();
+app.set('view engine', 'ejs');
 
 // static resources
 app.use("/build", express.static("build"));
@@ -13,26 +16,22 @@ app.use("/samples", express.static("samples"));
 
 // routes
 app.get("/", function(req, res) {
-  res.sendFile(path.join(htmlDir, "index.html"));
-});
-
-app.get("/vis", function(req, res) {
-  res.sendFile(path.join(htmlDir, "sketch.html"));
+  res.render(path.join(pagesDir, "sketch"));
 });
 
 app.get("/explain", function(req, res) {
-  res.sendFile(path.join(htmlDir, "explain.html"));
+  res.render(path.join(pagesDir, "explain"));
 });
 
 app.get("/about", function(req, res) {
-  res.sendFile(path.join(htmlDir, "about.html"));
+  res.render(path.join(pagesDir, "about"));
 });
 
 app.get("*", function(req, res) {
-  res.status(404).sendFile(path.join(htmlDir, "404.html"))
+  res.status(404).render(path.join(pagesDir, "404"))
 });
   
 // listen
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}!`);
+  console.log(`app listening on port ${port}!`);
 });

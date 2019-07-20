@@ -12,6 +12,7 @@
   "dependencies": {
     "@types/p5": "^0.7.2",
     "@types/tone": "git://github.com/Tonejs/TypeScript.git",
+    "ejs": "^2.6.2",
     "express": "^4.17.1",
     "typescript": "^3.5.2"
   },

@@ -45,8 +45,13 @@ class MovePicker {
     y += 40
     this.hexatonic = this.createButton("Hexatonic Pole (LPL)", y, this.manager.hexatonicPole);
 
+    this.drawKeyLabels();
+  }
+
+  drawKeyLabels() {
     this.sketch.textSize(15);
-    y = this.y + 29
+    
+    let y = this.y + 29
     this.sketch.text("A", this.x + 10, y);
     y += 40
     this.sketch.text("S", this.x + 10, y);
@@ -88,6 +93,7 @@ class MovePicker {
 
   createButton(text: string, y: Float, callback: () => boolean): p5.Element {
     let button = this.sketch.createButton(text);
+    button.parent("sketch-holder");
     button.position(this.x + 30, y);
     button.style('font-size', '12px');
     button.style('padding', '5px');

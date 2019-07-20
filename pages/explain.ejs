@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include partials/meta %>
+  <%- include partials/uni-css %>
+  <%- include partials/header-css %>
+  <%- include partials/text-css %>
+</head>
+
+<body>
+  
+  <%- include partials/header-html %>
+
+  <div id="content">
+    <h1>Neo-Riemannian Theory</h1>
+
+    <p>This interactive visualization explores an application of Neo-Riemannian theory. I know that sounds like the
+      final
+      boss in a video game about math... but stick with me as this is actually quite fun to explore.</p>
+
+    <h2>Music Theory Basics</h2>
+
+    <p>Before we can get into the Neo-Riemannian Theory there are some concepts that you should understand (such as
+      triads
+      and intervals). If you are already comfortable with basic music theory, feel free to skip this section.</p>
+
+    <h3>Intervals</h3>
+
+    <p>An interval is simply the tonal gap between two notes. The smallest possible interval in Western music is a half
+      step, which if you were to press two keys immediately next to each other on a piano. A whole step is simply two
+      half
+      steps. Intervals are a pretty simple concept and a huge building block for scales and chords.</p>
+
+    <p>Names have been assigned to each interval, but for this you only need to know a couple:</p>
+
+    <ul>
+      <li>Minor Third (3 Half Steps)</li>
+      <li>Major Third (4 Half Steps)</li>
+      <li>Fifth (7 Half Steps)</li>
+      <li>Octave (12 Half Steps - This is the same note name as the root)</li>
+    </ul>
+
+    <h3>Triads</h3>
+
+    <p>Triads are simply a type of chord that contains three notes. The lowest note is called the root, the middle note
+      is
+      the third, and the highest note is the fifth.</p>
+
+    <p>There are four different types of triads, but only two are relevant to this visualization: major and minor. Major
+      triads contain a major third while minor triads contain a minor third.</p>
+
+    <p>You now have enough preliminary knowledge to dig into Neo-Riemannian Theory!</p>
+
+    <h2>History</h2>
+
+    <p>Hugo Riemannian is widely regarded as the father of modern functional harmony and a lot of his work involves an
+      idea called dualism. Dualism is the idea that major and minor triads are actually just mirrors of each other (a
+      concept that will show through in the Tonnetz).</p>
+
+    <p>Riemannian then combined the idea of dualism with various other transpositions to create a series of
+      transformations that can convert one chord to another.</p>
+
+    <p>Neo-Riemannian Theory takes the idea of transformations and just absolutely runs with it. Boiling down all
+      transformations into a combination of three primary transformations.</p>
+
+    <h2>The Tonnetz</h2>
+
+    <p>The Tonnetz (German for "tone-network") is a method of visualizing Neo-Riemannian transformations.</p>
+
+    <p>It is a lattice diagram representing tonal space. That is a fancy way of describing the reality of it being a
+      series of triangles where each vertex is a note and each triangle is a major or minor triad consisting of the
+      notes
+      in its vertices.</p>
+
+    <p>The method in which the notes of the tonnetz are laid out allows for its seemingly magical musical potential.
+      Left
+      to right horizontally, it increases by fifths. Descending vertically, it increases by thirds.</p>
+
+    <p>That order allows for the Tonnetz to tie into Neo-Riemannian Theory as each each primary Neo-Riemannian
+      transformations can be represented by reflecting the triangle over one of its sides.</p>
+
+    <p>The three-dimensional visualization of the Tonnetz is a torus, so it will loop both horizontally and vertically.
+      However, it loops horizontally much quicker than vertically so that is the only direction it will loop in the
+      visualization.</p>
+
+    <p>In order for these triads to comply with existing music theory rules, the Tonnetz assumes enharmonic equivalence
+      (in other words, Ab = G#) along with no distinctions between octaves.</p>
+
+    <h2>The Three Primary Transformations</h2>
+
+    <h3>Parallel</h3>
+
+    <p>The parallel transformation maintains the root and the fifth and moves the third a half step. It changes the
+      chord
+      between major and minor.</p>
+
+    <p>Ex: C major 🔄 C minor</p>
+
+    <h3>Relative</h3>
+
+    <p>The relative transformation exchanges a triad for its relative major or minor.</p>
+
+    <p>In a major triad, it takes the fifth up a whole step up to become the root of a minor triad.</p>
+
+    <p>In a minor triad, it takes the root down a whole step to become the firth of a major triad.</p>
+
+    <p>Ex: C major 🔄 A minor</p>
+
+    <h3>Leading Tone</h3>
+
+    <p>The leading tone transformation exchanges a triad for its Leading-Tone Exchange. This is the opposite of a
+      relative
+      major and minor.</p>
+
+    <p>In a major triad, it takes the root down a half step to become the fifth of a minor triad.</p>
+
+    <p>In a minor triad, it takes the fifth up by a half step to become the root of a minor triad.</p>
+
+    <p>Ex: C major 🔄 E minor</p>
+
+    <h2>Complex Operations</h2>
+
+    <p>Every relationship between two major or minor triads can be mapped as some combination of the three primary
+      operations, but here are the complex operations that are demonstrated on this website.</p>
+
+    <h3>Nebenverwandt</h3>
+
+    <p>Both the left and right Nebenverwandt exchanges a major triad for its minor subdominant, and a minor triad for
+      its
+      major dominant. It either consists of RLP or PLR depending on if you want it to go leftwards or rightwards on the
+      Tonnetz.</p>
+
+    <p>Ex: C major 🔄 F minor</p>
+
+    <h3>Slide</h3>
+
+    <p>The Slide relation exchanges two triads that share a third. It consists of LPR.</p>
+
+    <p>Ex: C major 🔄 C♯ minor</p>
+
+    <h3>Hexatonic Pole</h3>
+
+    <p>The Hexatonic Pole relation exchanges a triad for its hexatonic pole. It consists of LPL.</p>
+
+    <p>Ex: C major 🔄 A♭ minor</p>
+  </div>
+
+  <%- include partials/header-script %>
+  
+</body>
+
+</html>
