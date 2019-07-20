@@ -1,38 +1,40 @@
 class DemoPicker {
 
+  // managers
   private sketch: p5;
+  private sizeManager: SizeManager
+
+  // managed
   private manager: PositionManager;
 
+  // buttons
   private brahmsButton: p5.Element;
 
+  // position
   x: Float
   y: Float
 
-  constructor(sketch: p5, manager: PositionManager, x: Float, y: Float) {
+  constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.manager = manager;
+    this.sizeManager = sizeManager;
 
-    this.x = x;
-    this.y = y;
+    this.reposition();
+  }
+
+  reposition() {
+    this.x = this.sizeManager.demoX;
+    this.y = this.sizeManager.demoY;
   }
 
   drawButtons() {
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
     let y = this.y
     this.sketch.text("Examples", this.x, y);
     y += 10
-    this.brahmsButton = this.createButton("Brahms Opus 102", y, this.brahms);
-  }
-
-  createButton(text: string, y: number, callback: () => boolean): p5.Element {
-    let button = this.sketch.createButton(text);
-    button.parent("sketch-holder");
-    button.position(this.x, y);
-    button.style('font-size', '12px');
-    button.style('padding', '5px');
-    button.style('width', '190px');
-    button.style('text-align', 'left');
-    button.mousePressed(callback);
-    return button;
+    this.brahmsButton = createButton(this.sketch, "Brahms Opus 102", this.x, y, this.brahms);
   }
 
   removeButtons() {

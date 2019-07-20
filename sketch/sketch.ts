@@ -22,10 +22,10 @@ const s = (sketch: p5) => {
     manager = new PositionManager(sketch, sizeManager);
     
     // pickers
-    movePicker = new MovePicker(sketch, manager, 300, 350);
-    recoPicker = new RecordingPicker(sketch, manager, 600, 350);
-    demoPicker = new DemoPicker(sketch, manager, 600, 525);
-    playPicker = new PlayerPicker(sketch, manager, 50, 350);
+    movePicker = new MovePicker(sketch, manager, sizeManager);
+    recoPicker = new RecordingPicker(sketch, manager, sizeManager);
+    demoPicker = new DemoPicker(sketch, manager, sizeManager);
+    playPicker = new PlayerPicker(sketch, manager, sizeManager);
     
     // draw pickers
     movePicker.drawButtons();
@@ -45,6 +45,12 @@ const s = (sketch: p5) => {
     sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
     sketch.background(51);
     sketch.clear();
+
+    // reset positions
+    movePicker.reposition();
+    demoPicker.reposition();
+    recoPicker.reposition();
+    playPicker.reposition();
 
     // clear dom
     movePicker.removeButtons();

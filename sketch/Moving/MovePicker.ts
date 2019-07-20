@@ -1,70 +1,93 @@
 class MovePicker {
+
+  // managers
   private sketch: p5;
+  private sizeManager: SizeManager;
+
+  // managed
   private manager: PositionManager;
 
-  x: Float
-  y: Float
+  // position
+  private primaryX: Float
+  private primaryY: Float
+  private compoundX: Float
+  private compoundY: Float
 
-  private left:        p5.Element;
-  private parallel:    p5.Element;
-  private right:       p5.Element;
-  private nebenLeft:   p5.Element;
-  private nebenRight:  p5.Element;
-  private slide:       p5.Element;
-  private hexatonic:   p5.Element;
+  // buttons
+  private left: p5.Element;
+  private parallel: p5.Element;
+  private right: p5.Element;
+  private nebenLeft: p5.Element;
+  private nebenRight: p5.Element;
+  private slide: p5.Element;
+  private hexatonic: p5.Element;
 
-  constructor(sketch: p5, manager: PositionManager, x: Float, y: Float) {
+  constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.manager = manager;
+    this.sizeManager = sizeManager;
 
-    this.x = x;
-    this.y = y;
+    this.reposition();
+  }
+
+  reposition() {
+    this.primaryX = this.sizeManager.primaryX;
+    this.primaryY = this.sizeManager.primaryY;
+    this.compoundX = this.sizeManager.compoundX;
+    this.compoundY = this.sizeManager.compoundY;
   }
 
   drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
 
-    let y = this.y
-    this.sketch.text("Primary Operations", this.x, y);
+    let x = this.primaryX
+    let y = this.primaryY
+    this.sketch.text("Primary Operations", x, y);
+    x += 30
     y += 10
-    this.left = this.createButton("Left -", y, this.manager.left);
+    this.left = createButton(this.sketch, "Left -", x, y, this.manager.left);
     y += 40
-    this.parallel = this.createButton("Vertical - Parallel", y, this.manager.parallel);
+    this.parallel = createButton(this.sketch, "Vertical - Parallel", x, y, this.manager.parallel);
     y += 40
-    this.right = this.createButton("Right -", y, this.manager.right);
+    this.right = createButton(this.sketch, "Right -", x, y, this.manager.right);
 
-    y += 90
-    this.sketch.text("Compound Operations", this.x, y)
+    x = this.compoundX
+    y = this.compoundY
+    this.sketch.text("Compound Operations", x, y)
+    x += 30
     y += 10
-    this.nebenLeft = this.createButton("Nebenverwandt Left ()", y, this.manager.nebenLeft);
-    y += 40 
-    this.nebenRight = this.createButton("Nebenverwandt Right ()", y, this.manager.nebenRight);
+    this.nebenLeft = createButton(this.sketch, "Nebenverwandt Left ()", x, y, this.manager.nebenLeft);
     y += 40
-    this.slide = this.createButton("Slide (LPR)", y, this.manager.slide);
+    this.nebenRight = createButton(this.sketch, "Nebenverwandt Right ()", x, y, this.manager.nebenRight);
     y += 40
-    this.hexatonic = this.createButton("Hexatonic Pole (LPL)", y, this.manager.hexatonicPole);
+    this.slide = createButton(this.sketch, "Slide (LPR)", x, y, this.manager.slide);
+    y += 40
+    this.hexatonic = createButton(this.sketch, "Hexatonic Pole (LPL)", x, y, this.manager.hexatonicPole);
 
     this.drawKeyLabels();
   }
 
   drawKeyLabels() {
     this.sketch.textSize(15);
-    
-    let y = this.y + 29
-    this.sketch.text("A", this.x + 10, y);
+
+    let x = this.primaryX + 10
+    let y = this.primaryY + 29
+    this.sketch.text("A", x, y);
     y += 40
-    this.sketch.text("S", this.x + 10, y);
+    this.sketch.text("S", x, y);
     y += 40
-    this.sketch.text("D", this.x + 10, y);
-    y += 99
-    this.sketch.text("Z", this.x + 10, y);
+    this.sketch.text("D", x, y);
+
+    x = this.compoundX + 10
+    y = this.compoundY + 29
+    this.sketch.text("Z", x, y);
     y += 40
-    this.sketch.text("X", this.x + 10, y);
+    this.sketch.text("X", x, y);
     y += 40
-    this.sketch.text("C", this.x + 10, y);
+    this.sketch.text("C", x, y);
     y += 40
-    this.sketch.text("V", this.x + 10, y);
+    this.sketch.text("V", x, y);
   }
 
   updateNames(major: boolean) {
@@ -91,15 +114,4 @@ class MovePicker {
     this.hexatonic.remove()
   }
 
-  createButton(text: string, y: Float, callback: () => boolean): p5.Element {
-    let button = this.sketch.createButton(text);
-    button.parent("sketch-holder");
-    button.position(this.x + 30, y);
-    button.style('font-size', '12px');
-    button.style('padding', '5px');
-    button.style('width', '190px');
-    button.style('text-align', 'left');
-    button.mousePressed(callback);
-    return button;
-  }
 }

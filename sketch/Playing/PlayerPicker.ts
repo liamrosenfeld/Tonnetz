@@ -1,23 +1,34 @@
 class PlayerPicker {
 
+  // managers
   private sketch: p5;
   private manager: PositionManager;
+  private sizeManager: SizeManager;
+
+  // managed
   private player: Player;
   private pitches: Pitches;
 
+  // position
   x: Float
   y: Float
 
   private muteButton: p5.Element;
   private recenterButton: p5.Element;
 
-  constructor(sketch: p5, manager: PositionManager, x: Float, y: Float) {
+  constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.manager = manager;
     this.player = manager.player;
     this.pitches = manager.pitches;
-    this.x = x;
-    this.y = y;
+    this.sizeManager = sizeManager;
+
+    this.reposition();
+  }
+
+  reposition() {
+    this.x = this.sizeManager.playbackX;
+    this.y = this.sizeManager.playbackY;
   }
 
   drawButtons() {
@@ -27,26 +38,14 @@ class PlayerPicker {
     let y = this.y
     this.sketch.text("Playback", this.x, y);
     y += 10
-    this.muteButton = this.createButton(this.player.getPlaying ? "Mute" : "Unmute", y, this.toggleMute);
+    this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", this.x, y, this.toggleMute);
     y += 40
-    this.recenterButton = this.createButton("Recenter Progression", y, this.recenter);
+    this.recenterButton = createButton(this.sketch, "Recenter Progression", this.x, y, this.recenter);
   }
 
   removeButtons() {
     this.muteButton.remove()
     this.recenterButton.remove()
-  }
-
-  createButton(text: string, y: Float, callback: () => boolean): p5.Element {
-    let button = this.sketch.createButton(text);
-    button.parent("sketch-holder");
-    button.position(this.x, y);
-    button.style('font-size', '12px');
-    button.style('padding', '5px');
-    button.style('width', '190px');
-    button.style('text-align', 'left');
-    button.mousePressed(callback);
-    return button;
   }
 
   private toggleMute = () => {

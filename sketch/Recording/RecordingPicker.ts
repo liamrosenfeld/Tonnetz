@@ -1,10 +1,14 @@
 class RecordingPicker {
 
+  // managers
   private sketch: p5;
+  private sizeManager: SizeManager;
 
+  // managed
   private recorder: Recorder;
   private recording: Recording;
 
+  // buttons
   private startButton: p5.Element;
   private stopButton:  p5.Element;
   private playButton:  p5.Element;
@@ -12,23 +16,32 @@ class RecordingPicker {
   x: Float;
   y: Float;
 
-  constructor(sketch: p5, manager: PositionManager, x: Float, y: Float) {
+  constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.recorder = manager.recorder;
 
-    this.x = x;
-    this.y = y;
+    this.sizeManager = sizeManager;
+
+    this.reposition();
+  }
+
+  reposition() {
+    this.x = this.sizeManager.recordingX;
+    this.y = this.sizeManager.recordingY;
   }
 
   drawButtons() {
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
     let y = this.y;
     this.sketch.text("Recording", this.x, y);
     y += 10
-    this.startButton = this.createButton("Start New", y, this.start);
+    this.startButton = createButton(this.sketch, "Start New", this.x, y, this.start);
     y += 40
-    this.stopButton  = this.createButton("Stop Recording", y, this.stop);
+    this.stopButton  = createButton(this.sketch, "Stop Recording", this.x, y, this.stop);
     y += 40
-    this.playButton  = this.createButton("Play Back", y, this.play);
+    this.playButton  = createButton(this.sketch, "Play Back", this.x, y, this.play);
 
     this.stopButton.attribute('disabled', '');
     this.playButton.attribute('disabled', '');
@@ -38,18 +51,6 @@ class RecordingPicker {
     this.startButton.remove();
     this.stopButton.remove();
     this.playButton.remove();
-  }
-
-  createButton(text: string, y: number, callback: () => boolean): p5.Element {
-    let button = this.sketch.createButton(text);
-    button.parent("sketch-holder");
-    button.position(this.x, y);
-    button.style('font-size', '12px');
-    button.style('padding', '5px');
-    button.style('width', '190px');
-    button.style('text-align', 'left');
-    button.mousePressed(callback);
-    return button;
   }
 
 
