@@ -13,46 +13,47 @@ class RecordingPicker {
   private stopButton:  p5.Element;
   private playButton:  p5.Element;
 
-  x: Float;
-  y: Float;
-
   constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.recorder = manager.recorder;
 
     this.sizeManager = sizeManager;
-
-    this.reposition();
   }
 
   reposition() {
-    this.x = this.sizeManager.recordingX;
-    this.y = this.sizeManager.recordingY;
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
+    let x = this.sizeManager.recordingX;
+    let y = this.sizeManager.recordingY;
+
+    this.sketch.text("Recording", x, y);
+    y += 10
+    this.startButton.position(x, y);
+    y += 40
+    this.stopButton.position(x, y);
+    y += 40
+    this.playButton.position(x, y);
   }
 
   drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
 
-    let y = this.y;
-    this.sketch.text("Recording", this.x, y);
+    let x = this.sizeManager.recordingX;
+    let y = this.sizeManager.recordingY;
+
+    this.sketch.text("Recording", x, y);
     y += 10
-    this.startButton = createButton(this.sketch, "Start New", this.x, y, this.start);
+    this.startButton = createButton(this.sketch, "Start New", x, y, this.start);
     y += 40
-    this.stopButton  = createButton(this.sketch, "Stop Recording", this.x, y, this.stop);
+    this.stopButton  = createButton(this.sketch, "Stop Recording", x, y, this.stop);
     y += 40
-    this.playButton  = createButton(this.sketch, "Play Back", this.x, y, this.play);
+    this.playButton  = createButton(this.sketch, "Play Back", x, y, this.play);
 
     this.stopButton.attribute('disabled', '');
     this.playButton.attribute('disabled', '');
   }
-
-  removeButtons() {
-    this.startButton.remove();
-    this.stopButton.remove();
-    this.playButton.remove();
-  }
-
 
   // functionality
   private start = () => {

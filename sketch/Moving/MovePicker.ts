@@ -7,12 +7,6 @@ class MovePicker {
   // managed
   private manager: PositionManager;
 
-  // position
-  private primaryX: Float
-  private primaryY: Float
-  private compoundX: Float
-  private compoundY: Float
-
   // buttons
   private left: p5.Element;
   private parallel: p5.Element;
@@ -26,23 +20,45 @@ class MovePicker {
     this.sketch = sketch;
     this.manager = manager;
     this.sizeManager = sizeManager;
-
-    this.reposition();
   }
 
   reposition() {
-    this.primaryX = this.sizeManager.primaryX;
-    this.primaryY = this.sizeManager.primaryY;
-    this.compoundX = this.sizeManager.compoundX;
-    this.compoundY = this.sizeManager.compoundY;
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
+    let x = this.sizeManager.primaryX;
+    let y = this.sizeManager.primaryY;
+    this.sketch.text("Primary Operations", x, y);
+    x += 30
+    y += 10
+    this.left.position(x, y);
+    y += 40
+    this.parallel.position(x, y);
+    y += 40
+    this.right.position(x, y);
+
+    x = this.sizeManager.compoundX;
+    y = this.sizeManager.compoundY;
+    this.sketch.text("Compound Operations", x, y)
+    x += 30
+    y += 10
+    this.nebenLeft.position(x, y);
+    y += 40
+    this.nebenRight.position(x, y);
+    y += 40
+    this.slide.position(x, y);
+    y += 40
+    this.hexatonic.position(x, y);
+
+    this.drawKeyLabels();
   }
 
   drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
 
-    let x = this.primaryX
-    let y = this.primaryY
+    let x = this.sizeManager.primaryX;
+    let y = this.sizeManager.primaryY;
     this.sketch.text("Primary Operations", x, y);
     x += 30
     y += 10
@@ -52,8 +68,8 @@ class MovePicker {
     y += 40
     this.right = createButton(this.sketch, "Right -", x, y, this.manager.right);
 
-    x = this.compoundX
-    y = this.compoundY
+    x = this.sizeManager.compoundX;
+    y = this.sizeManager.compoundY;
     this.sketch.text("Compound Operations", x, y)
     x += 30
     y += 10
@@ -71,16 +87,16 @@ class MovePicker {
   drawKeyLabels() {
     this.sketch.textSize(15);
 
-    let x = this.primaryX + 10
-    let y = this.primaryY + 29
+    let x = this.sizeManager.primaryX + 10
+    let y = this.sizeManager.primaryY + 29
     this.sketch.text("A", x, y);
     y += 40
     this.sketch.text("S", x, y);
     y += 40
     this.sketch.text("D", x, y);
 
-    x = this.compoundX + 10
-    y = this.compoundY + 29
+    x = this.sizeManager.compoundX + 10
+    y = this.sizeManager.compoundY + 29
     this.sketch.text("Z", x, y);
     y += 40
     this.sketch.text("X", x, y);
@@ -103,15 +119,4 @@ class MovePicker {
       this.nebenRight.html("Nebenverwandt Right (RLP)")
     }
   }
-
-  removeButtons() {
-    this.left.remove()
-    this.parallel.remove()
-    this.right.remove()
-    this.nebenLeft.remove()
-    this.nebenRight.remove()
-    this.slide.remove()
-    this.hexatonic.remove()
-  }
-
 }

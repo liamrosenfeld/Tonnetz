@@ -32,37 +32,28 @@ const s = (sketch: p5) => {
     demoPicker.drawButtons();
     recoPicker.drawButtons();
     playPicker.drawButtons();
+    
+    drawn = true;
   };
 
-  let resizeCounter = 0; 
+  let drawn = false;
 
   sketch.windowResized = () => {
-    // limit resize rate
-    resizeCounter += 1;
-    if (resizeCounter % 5 != 0) { return }
+    // check that setup is complete
+    if (!drawn) {
+      // setTimeout(sketch.windowResized, 100);
+      return;
+    }
 
     // reset canvas
     sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
-    sketch.background(51);
-    sketch.clear();
+    sketch.background(51); // covers up everything except buttons
 
-    // reset positions
+    // reset button positions
     movePicker.reposition();
     demoPicker.reposition();
     recoPicker.reposition();
     playPicker.reposition();
-
-    // clear dom
-    movePicker.removeButtons();
-    demoPicker.removeButtons();
-    recoPicker.removeButtons();
-    playPicker.removeButtons();
-
-    // repopulate dom
-    movePicker.drawButtons();
-    demoPicker.drawButtons();
-    recoPicker.drawButtons();
-    playPicker.drawButtons();
     
     // update manager sizes
     sizeManager.calcSizes()

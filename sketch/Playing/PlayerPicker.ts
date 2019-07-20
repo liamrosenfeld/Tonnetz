@@ -9,10 +9,6 @@ class PlayerPicker {
   private player: Player;
   private pitches: Pitches;
 
-  // position
-  x: Float
-  y: Float
-
   private muteButton: p5.Element;
   private recenterButton: p5.Element;
 
@@ -22,30 +18,34 @@ class PlayerPicker {
     this.player = manager.player;
     this.pitches = manager.pitches;
     this.sizeManager = sizeManager;
-
-    this.reposition();
   }
 
   reposition() {
-    this.x = this.sizeManager.playbackX;
-    this.y = this.sizeManager.playbackY;
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
+    let x = this.sizeManager.playbackX;
+    let y = this.sizeManager.playbackY;
+
+    this.sketch.text("Playback", x, y);
+    y += 10
+    this.muteButton.position(x, y);
+    y += 40
+    this.recenterButton.position(x, y);
   }
 
   drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
 
-    let y = this.y
-    this.sketch.text("Playback", this.x, y);
+    let x = this.sizeManager.playbackX;
+    let y = this.sizeManager.playbackY;
+    
+    this.sketch.text("Playback", x, y);
     y += 10
-    this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", this.x, y, this.toggleMute);
+    this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", x, y, this.toggleMute);
     y += 40
-    this.recenterButton = createButton(this.sketch, "Recenter Progression", this.x, y, this.recenter);
-  }
-
-  removeButtons() {
-    this.muteButton.remove()
-    this.recenterButton.remove()
+    this.recenterButton = createButton(this.sketch, "Recenter Progression", x, y, this.recenter);
   }
 
   private toggleMute = () => {
