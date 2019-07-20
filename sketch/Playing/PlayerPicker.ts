@@ -9,8 +9,13 @@ class PlayerPicker {
   private player: Player;
   private pitches: Pitches;
 
+  // buttons
   private muteButton: p5.Element;
   private recenterButton: p5.Element;
+
+  // labels
+  readonly fontSize = 20
+  private titleLabel: p5.Element;
 
   constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
@@ -27,7 +32,7 @@ class PlayerPicker {
     let x = this.sizeManager.playbackX;
     let y = this.sizeManager.playbackY;
 
-    this.sketch.text("Playback", x, y);
+    this.titleLabel.position(x, y + this.fontSize);
     y += 10
     this.muteButton.position(x, y);
     y += 40
@@ -41,7 +46,7 @@ class PlayerPicker {
     let x = this.sizeManager.playbackX;
     let y = this.sizeManager.playbackY;
     
-    this.sketch.text("Playback", x, y);
+    this.titleLabel = createLabel(this.sketch, "Playback", x, y, this.fontSize);
     y += 10
     this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", x, y, this.toggleMute);
     y += 40

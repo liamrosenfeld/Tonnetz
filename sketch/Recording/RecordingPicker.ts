@@ -13,6 +13,10 @@ class RecordingPicker {
   private stopButton:  p5.Element;
   private playButton:  p5.Element;
 
+  // labels
+  readonly fontSize = 20
+  private titleLabel:  p5.Element;
+
   constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.recorder = manager.recorder;
@@ -27,7 +31,7 @@ class RecordingPicker {
     let x = this.sizeManager.recordingX;
     let y = this.sizeManager.recordingY;
 
-    this.sketch.text("Recording", x, y);
+    this.titleLabel.position(x, y + this.fontSize);
     y += 10
     this.startButton.position(x, y);
     y += 40
@@ -43,7 +47,7 @@ class RecordingPicker {
     let x = this.sizeManager.recordingX;
     let y = this.sizeManager.recordingY;
 
-    this.sketch.text("Recording", x, y);
+    this.titleLabel = createLabel(this.sketch, "Recording", x, y, this.fontSize);
     y += 10
     this.startButton = createButton(this.sketch, "Start New", x, y, this.start);
     y += 40

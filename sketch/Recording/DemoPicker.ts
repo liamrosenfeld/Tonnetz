@@ -10,6 +10,10 @@ class DemoPicker {
   // buttons
   private brahmsButton: p5.Element;
 
+  // labels
+  readonly fontSize = 20
+  private titleLabel: p5.Element;
+
   constructor(sketch: p5, manager: PositionManager, sizeManager: SizeManager) {
     this.sketch = sketch;
     this.manager = manager;
@@ -22,8 +26,8 @@ class DemoPicker {
 
     let x = this.sizeManager.demoX;
     let y = this.sizeManager.demoY;
-
-    this.sketch.text("Examples", x, y);
+    
+    this.titleLabel.position(x, y + this.fontSize);
     y += 10
     this.brahmsButton.position(x, y);
   }
@@ -35,7 +39,8 @@ class DemoPicker {
     let x = this.sizeManager.demoX;
     let y = this.sizeManager.demoY;
 
-    this.sketch.text("Examples", x, y);
+    
+    this.titleLabel = createLabel(this.sketch, "Examples", x, y, this.fontSize);
     y += 10
     this.brahmsButton = createButton(this.sketch, "Brahms Opus 102", x, y, this.brahms);
   }
