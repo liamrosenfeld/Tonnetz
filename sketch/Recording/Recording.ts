@@ -26,24 +26,23 @@ class Recording {
 
   private play() {
     const action = this.tempActions.shift();
-    
-    if ((action as Wait).time) {
+
+    if ((action as Wait).time !== undefined) {
 
       const wait = action as Wait
       console.log("wait: " + wait.time);
       setTimeout(this.next, wait.time);
 
-    } else if ((action as Teleport).x) {
+    } else if ((action as Teleport).x !== undefined) {
 
       const tele = action as Teleport
       console.log("teleport: " + tele.x + ", " + tele.y);
       this.manager.teleport(tele.x, tele.y);
       this.next();
 
-    } else if (action as Move) {
+    } else if ((action as Move).toUpperCase !== undefined) {
 
       const move = action as Move
-      console.log("move: " + move);
       this.matchMove(move);
       this.next();
 
