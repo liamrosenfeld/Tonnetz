@@ -3,25 +3,24 @@ class Recorder {
   private sketch: p5;
   private manager: PositionManager;
 
-  private recording: Recording;
+  private recording: Action[] = new Array();
   private prevTime: Float;
   private isRecording: boolean;
 
   constructor(sketch: p5, manager: PositionManager) {
     this.sketch = sketch;
     this.manager = manager;
-    this.recording = new Recording(this.manager);
   }
 
   newRecording() {
     // new recording
+    this.recording = [];
     this.isRecording = true;
-    this.recording = new Recording(this.manager);
     this.prevTime = this.sketch.millis();
 
     // starting position
     const startLoc: Teleport = { x: this.manager.getX, y: this.manager.getY }; 
-    this.recording.add(startLoc);
+    this.recording.push(startLoc);
   }
 
   addMove(move: Action) {
@@ -33,11 +32,11 @@ class Recorder {
     const wait: Wait = { time: waitTime };
     
     // add wait and move
-    this.recording.add(wait);
-    this.recording.add(move);
+    this.recording.push(wait);
+    this.recording.push(move);
   }
 
-  stopRecording(): Recording {
+  stopRecording(): Action[] {
     this.isRecording = false;
     return this.recording;
   }

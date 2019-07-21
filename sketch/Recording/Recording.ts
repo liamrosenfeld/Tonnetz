@@ -1,31 +1,29 @@
-class Recording {
+class RecordingPlayer {
 
   private manager: PositionManager;
+  private picker: RecordingPicker;
 
   private actions: Action[] = new Array();
-  private tempActions: Action[] = new Array();
 
-  constructor(manager: PositionManager) {
+  private stopped = false;
+
+  constructor(manager: PositionManager, picker: RecordingPicker) {
     this.manager = manager;
-  }
-
-  add(action: Action) {
-    this.actions.push(action);
+    this.picker = picker;
   }
 
   // Playing Back
-  playDemo(demo: Action[]) {
-    this.tempActions = [...demo]; // duplicate
+  playBack(recording: Action[]) {
+    this.actions = [...recording]; // duplicate
     this.play();
   }
 
-  playBack() {
-    this.tempActions = [...this.actions]; // duplicate
-    this.play();
+  stop() {
+    this.stopped = true;
   }
 
   private play() {
-    const action = this.tempActions.shift();
+    const action = this.actions.shift();
 
     if ((action as Wait).time !== undefined) {
 
@@ -52,9 +50,13 @@ class Recording {
   }
 
   private next = () => {
-    if (this.tempActions.length > 0) {
+    if (this.stopped) {
+      console.log("Stopped.");
+      this.stopped = false;
+    } else if (this.actions.length > 0) {
       this.play();
     } else {
+      this.picker.playButtonEnable();
       console.log("Done.");
     }
   }

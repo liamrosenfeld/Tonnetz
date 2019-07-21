@@ -6,7 +6,6 @@ const s = (sketch: p5) => {
   
   // pickers
   let movePicker: MovePicker;
-  let demoPicker: DemoPicker;
   let recoPicker: RecordingPicker;
   let playPicker: PlayerPicker;
 
@@ -24,12 +23,10 @@ const s = (sketch: p5) => {
     // pickers
     movePicker = new MovePicker(sketch, manager, sizeManager);
     recoPicker = new RecordingPicker(sketch, manager, sizeManager);
-    demoPicker = new DemoPicker(sketch, manager, sizeManager);
     playPicker = new PlayerPicker(sketch, manager, sizeManager);
     
     // draw pickers
     movePicker.drawButtons();
-    demoPicker.drawButtons();
     recoPicker.drawButtons();
     playPicker.drawButtons();
     
@@ -51,7 +48,6 @@ const s = (sketch: p5) => {
 
     // reset button positions
     movePicker.reposition();
-    demoPicker.reposition();
     recoPicker.reposition();
     playPicker.reposition();
     

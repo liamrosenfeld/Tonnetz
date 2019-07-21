@@ -117,7 +117,7 @@ class SizeManager {
       this.compoundY = y;
       y += 4 * perButton + padding;
       this.recordingY = y;
-      y += 3 * perButton + padding;
+      y += 4 * perButton + padding;
       this.demoY = y;
 
       let x = (this.winWidth - this.buttonSectionWidth) / 2;
