@@ -49,7 +49,9 @@ class PlayerPicker {
     
     this.titleLabel = createLabel(this.sketch, "Playback", x, y, this.fontSize);
     y += 10
-    this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", x, y, this.toggleMute);
+    this.muteButton = createButton(this.sketch, "Start", x, y, this.toggleMute);
+    this.muteButton.style("color", "white")
+    this.muteButton.style("background-color", "green")
     y += this.buttonSpacing
     this.recenterButton = createButton(this.sketch, "Recenter Progression", x, y, this.recenter);
   }
@@ -60,6 +62,8 @@ class PlayerPicker {
       this.muteButton.html("Unmute");
     } else {
       this.player.start();
+      this.muteButton.style("background-color", "#EFEFEF");
+      this.muteButton.style("color", "black");
       this.muteButton.html("Mute");
     }
 

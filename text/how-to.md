@@ -2,6 +2,10 @@
 
 The UI is designed to be reasonably self descriptive without being busy, but if you have any questions, you've come to the right place!
 
+## Starting
+
+Click the start button under the playback section to start audio playback. It can then be muted and unmuted with that same button.
+
 ## Navigating the Lattice
 
 The lattice can be traversed two ways: keys and buttons. You can either click on the button for the move you want or just click the key next to the move (recommended if you have a physical keyboard).
