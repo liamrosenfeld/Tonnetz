@@ -13,7 +13,8 @@ function createButton(sketch: p5, text: string, x: Float, y: Float, callback: ()
 
 function createLabel(sketch: p5, text: string, x: Float, y: Float, fontSize: Float): p5.Element {
   let label = sketch.createElement("p", text);
-  label.position(x, y + fontSize);
+  label.parent("sketch-holder");
+  label.position(x, y - fontSize);
   label.style("font-size", fontSize + "px");
   label.style("color", "#ffffff")
   return label;

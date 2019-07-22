@@ -32,7 +32,7 @@ class PlayerPicker {
     let x = this.sizeManager.playbackX;
     let y = this.sizeManager.playbackY;
 
-    this.titleLabel.position(x, y + this.fontSize);
+    this.titleLabel.position(x, y - this.fontSize);
     y += 10
     this.muteButton.position(x, y);
     y += 40

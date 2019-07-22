@@ -39,7 +39,7 @@ class RecordingPicker {
     let x = this.sizeManager.recordingX;
     let y = this.sizeManager.recordingY;
 
-    this.userLabel.position(x, y + this.fontSize);
+    this.userLabel.position(x, y - this.fontSize);
     y += 10
     this.startRecButton.position(x, y);
     y += 40
@@ -51,7 +51,7 @@ class RecordingPicker {
 
     x = this.sizeManager.demoX;
     y = this.sizeManager.demoY;
-    this.demoLabel.position(x, y + this.fontSize);
+    this.demoLabel.position(x, y - this.fontSize);
     y += 10
     this.brahmsButton.position(x, y);
     y += 40

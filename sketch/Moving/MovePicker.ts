@@ -66,7 +66,7 @@ class MovePicker {
 
   drawKeyLabels() {
     let x = this.sizeManager.primaryX + 10
-    let y = this.sizeManager.primaryY + 39
+    let y = this.sizeManager.primaryY + 29
     this.aLabel = createLabel(this.sketch, "A", x, y, this.secondaryFontSize);
     y += 40
     this.sLabel = createLabel(this.sketch, "S", x, y, this.secondaryFontSize);
@@ -74,7 +74,7 @@ class MovePicker {
     this.dLabel = createLabel(this.sketch, "D", x, y, this.secondaryFontSize);
 
     x = this.sizeManager.compoundX + 10
-    y = this.sizeManager.compoundY + 39
+    y = this.sizeManager.compoundY + 29
     this.zLabel = createLabel(this.sketch, "Z", x, y, this.secondaryFontSize);
     y += 40
     this.xLabel = createLabel(this.sketch, "X", x, y, this.secondaryFontSize);
@@ -87,7 +87,7 @@ class MovePicker {
   reposition() {
     let x = this.sizeManager.primaryX;
     let y = this.sizeManager.primaryY ;
-    this.primaryLabel.position(x, y + this.mainFontSize);
+    this.primaryLabel.position(x, y - this.mainFontSize);
     x += 30
     y += 10
     this.left.position(x, y);
@@ -98,7 +98,7 @@ class MovePicker {
 
     x = this.sizeManager.compoundX;
     y = this.sizeManager.compoundY;
-    this.compoundLabel.position(x, y + this.mainFontSize);
+    this.compoundLabel.position(x, y - this.mainFontSize);
     x += 30
     y += 10
     this.nebenLeft.position(x, y);
@@ -114,22 +114,22 @@ class MovePicker {
 
   repositionKeyLabels() {
     let x = this.sizeManager.primaryX + 10;
-    let y = this.sizeManager.primaryY + 39  ;
-    this.aLabel.position(x, y + this.secondaryFontSize);
+    let y = this.sizeManager.primaryY + 29  ;
+    this.aLabel.position(x, y - this.secondaryFontSize);
     y += 40 
-    this.sLabel.position(x, y + this.secondaryFontSize);
+    this.sLabel.position(x, y - this.secondaryFontSize);
     y += 40 
-    this.dLabel.position(x, y + this.secondaryFontSize);
+    this.dLabel.position(x, y - this.secondaryFontSize);
 
     x = this.sizeManager.compoundX + 10
-    y = this.sizeManager.compoundY + 39 
-    this.zLabel.position(x, y + this.secondaryFontSize);
+    y = this.sizeManager.compoundY + 29 
+    this.zLabel.position(x, y - this.secondaryFontSize);
     y += 40 
-    this.xLabel.position(x, y + this.secondaryFontSize);
+    this.xLabel.position(x, y - this.secondaryFontSize);
     y += 40 
-    this.cLabel.position(x, y + this.secondaryFontSize);
+    this.cLabel.position(x, y - this.secondaryFontSize);
     y += 40 
-    this.vLabel.position(x, y + this.secondaryFontSize);
+    this.vLabel.position(x, y - this.secondaryFontSize);
   }
 
   updateNames(major: boolean) {

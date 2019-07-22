@@ -110,7 +110,7 @@ class SizeManager {
       this.demoX = x;
     } else {
       // all stacked
-      let y = buttonSectionTop;
+      let y = buttonSectionTop + padding;
       this.playbackY = y;
       y += 2 * perButton + padding;
       this.primaryY = y;
