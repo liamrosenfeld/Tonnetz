@@ -1,6 +1,6 @@
-# Neo-Riemannian Theory
+# Neo-Riemannian Theory Explained
 
-This interactive visualization explores an application of Neo-Riemannian theory. I know that sounds like the final boss in a video game about math... but stick with me as this is actually quite fun to explore.
+This interactive visualization explores an application of Neo-Riemannian theory. I know that sounds like the final boss in a video game about math... but stick with me as this is actually quite fun to explore!
 
 ## Music Theory Basics
 
@@ -37,13 +37,14 @@ Neo-Riemannian Theory takes the idea of transformations and just absolutely runs
 
 The Tonnetz (German for "tone-network") is a method of visualizing Neo-Riemannian transformations.
 
-It is a lattice diagram representing tonal space. That is a fancy way of describing the reality of it being a series of triangles where each vertex is a note and each triangle is a major or minor triad consisting of the notes in its vertices.
+It is a lattice diagram representing tonal space. That is a fancy way of describing the reality of it being a series of triangles where each vertex is a note and each triangle is a major (pointing down) or minor (pointing up) triad consisting of the notes in its vertices.
 
-The method in which the notes of the tonnetz are laid out allows for its seemingly magical musical potential. Left to right horizontally, it increases by  fifths. Descending vertically, it increases by thirds.
+The method in which the notes of t
+he Tonnetz are laid out allows for its seemingly magical musical potential. Left to right horizontally, it increases by fifths. Descending vertically, it increases by major thirds.
 
 That order allows for the Tonnetz to tie into Neo-Riemannian Theory as each each primary Neo-Riemannian transformations can be represented by reflecting the triangle over one of its sides.
 
-The three-dimensional visualization of the Tonnetz is a torus, so it will loop both horizontally and vertically. However, it loops horizontally much quicker than vertically so that is the only direction it will loop in the visualization.
+The three-dimensional visualization of the Tonnetz is a torus, so it will loop both horizontally and vertically. However, it loops vertically much quicker than horizontally so that is the only direction it will loop in the visualization.
 
 In order for these triads to comply with existing music theory rules, the Tonnetz assumes enharmonic equivalence (in other words, Ab = G#) along with no distinctions between octaves.
 

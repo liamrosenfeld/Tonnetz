@@ -6,6 +6,8 @@ const fs = require('fs');
 
 // constants
 const port = 8080;
+
+// directories
 const pagesDir = path.join(__dirname, "pages");
 const mdDir = path.join(__dirname, "text");
 
@@ -18,20 +20,33 @@ app.use("/build", express.static("build"));
 app.use("/samples", express.static("samples"));
 
 // markdown
-const explainDir = path.join(mdDir, "explain.md");
-const aboutDir = path.join(mdDir, "about.md");
-const explainText = fs.readFileSync(explainDir, {"encoding" : "utf8"});
-const aboutText = fs.readFileSync(aboutDir, {"encoding" : "utf8"});
-const explain = {"content" : marked(explainText)}
-const about = {"content" : marked(aboutText)}
+function mdToHtml(fileName) {
+  const dir = path.join(mdDir, fileName + ".md");
+  const text = fs.readFileSync(dir, {"encoding" : "utf8"});
+  const html = {"content" : marked(text)}
+  return html;
+}
+
+const music = mdToHtml("explain-music")
+const code  = mdToHtml("explain-code")
+const howTo = mdToHtml("how-to")
+const about = mdToHtml("about")
 
 // routes
 app.get("/", function(req, res) {
   res.render(path.join(pagesDir, "sketch"));
 });
 
-app.get("/explain", function(req, res) {
-  res.render(path.join(pagesDir, "text"), explain);
+app.get("/explain-music", function(req, res) {
+  res.render(path.join(pagesDir, "text"), music);
+});
+
+app.get("/explain-code", function(req, res) {
+  res.render(path.join(pagesDir, "text"), code);
+});
+
+app.get("/how-to", function(req, res) {
+  res.render(path.join(pagesDir, "text"), howTo);
 });
 
 app.get("/about", function(req, res) {

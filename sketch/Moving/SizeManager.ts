@@ -68,6 +68,9 @@ class SizeManager {
   }
 
   private calcButtons() {
+    const perButton = 50;
+    const padding = 30;
+
     let buttonSectionTop = this.triSize * 3.5;
 
     if (this.winWidth > this.buttonSectionWidth * 5 + 100) {
@@ -93,9 +96,9 @@ class SizeManager {
       // all next to each other
       this.playbackY = buttonSectionTop;
       this.primaryY = buttonSectionTop;
-      this.compoundY = buttonSectionTop + 180;
+      this.compoundY = buttonSectionTop + (3 * perButton) + padding;
       this.recordingY = buttonSectionTop;
-      this.demoY = buttonSectionTop + 180;
+      this.demoY = buttonSectionTop + (4 * perButton) + padding;;
 
       let x = (this.winWidth - (this.buttonSectionWidth * 3 + 25)) / 2;
       this.playbackX = x;
@@ -107,8 +110,6 @@ class SizeManager {
       this.demoX = x;
     } else {
       // all stacked
-      const perButton = 50;
-      const padding = 30;
       let y = buttonSectionTop;
       this.playbackY = y;
       y += 2 * perButton + padding;

@@ -1,6 +1,6 @@
 # About
 
-Hello, I'm Liam Rosenfeld. I'll be going into 11th grade for the 2019-20 school year. This is my submission for the repl.it music competition.
+Hello, I'm Liam Rosenfeld. I'll be going into 11th grade for the 2019-20 school year. This is my submission for the [repl.it](https://repl.it/jam) music competition.
 
 ## Motivation
 
@@ -11,3 +11,5 @@ I enjoy visualizing abstract concepts through code (as I have [previously done w
 ## Usage
 
 This is not meant to be a a silver bullet for chord generation. Like all of music theory, this is just a tool. This implementation of the tool is meant to be a vehicle for exploration, and **I hope you have a fun time exploring**.
+
+<> with ❤️ by Liam Rosenfeld
