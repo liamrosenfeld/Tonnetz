@@ -39,26 +39,29 @@ const s = (sketch: p5) => {
   sketch.windowResized = () => {
     // check that setup is complete
     if (!drawn) {
-      // setTimeout(sketch.windowResized, 100);
       return;
     }
 
     // reset canvas
     sizeManager.calcSizes(sketch.windowWidth)
     sketch.resizeCanvas(sketch.windowWidth, sizeManager.winHeight);
-    sketch.background(51); // covers up everything except buttons
 
     // reset button positions
     movePicker.reposition();
     recoPicker.reposition();
     playPicker.reposition();
     
-    // update manager sizes
-    
-    manager.newSize();
-
-    // redraw lattice
-    sketch.redraw();
+    // update managed sizes
+    if (sizeManager.newMiddle) {
+      console.log("new middle");
+      recoPicker.resetRecording();
+    }
+    if (sizeManager.diffSize) {
+      console.log("resized");
+      sketch.background(51); // covers up everything except button
+      manager.newSize(sizeManager.newMiddle);
+      sketch.redraw();
+    }
   }
 
   sketch.draw = () => {

@@ -160,4 +160,12 @@ class RecordingPicker {
     this.hamiltonianButton.removeAttribute("disabled");
   }
 
+  // system
+  resetRecording() {
+    this.stopPlay();
+    this.recording = [];
+    this.playButtonEnable();
+    this.startPlayButton.attribute("disabled", "");
+  }
+
 }

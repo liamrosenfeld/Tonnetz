@@ -34,6 +34,15 @@ class SizeManager {
   demoX: Float;
   demoY: Float;
 
+  // change
+  private oldW: Int = 12;
+  private oldH: Int = 3;
+  private oldX: Int = 2 * Math.floor(this.w / 4);
+  private oldY: Int = Math.floor(this.h / 2);
+  private oldTri: Float = 100;
+  diffSize: boolean;
+  newMiddle: boolean;
+
   calcSizes(width: Float) {
     this.winWidth = width - 50; // factor in padding
 
@@ -52,11 +61,34 @@ class SizeManager {
     } else {
       // increase width (room available)
       this.triSize = this.defaultTriSize;
-      this.w = 2 * Math.floor((this.winWidth * 1.5) / this.defaultTriSize / 2);
+      this.w = 2 * Math.floor((this.winWidth * 1.75) / this.defaultTriSize / 2);
     }
 
+    // New Centers
     this.centerX = 2 * Math.floor(this.w / 4);
     this.centerY = Math.floor(this.h / 2);
+
+    // Check if Different
+    if (this.centerX != this.oldX || this.centerY != this.oldY) {
+      this.diffSize = true;
+      this.newMiddle = true;
+      this.updateOld();
+    } else if (this.w != this.oldW || this.h != this.oldH || this.triSize != this.oldTri) {
+      this.diffSize = true;
+      this.newMiddle = false;
+      this.updateOld();
+    } else {
+      this.diffSize = false;
+      this.newMiddle = false;
+    }
+  }
+
+  private updateOld() {
+    this.oldW = this.w;
+    this.oldH = this.h;
+    this.oldTri = this.triSize;
+    this.oldX = this.centerX;
+    this.oldY = this.centerY;
   }
 
   private calcButtons() {

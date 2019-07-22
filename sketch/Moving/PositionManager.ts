@@ -38,20 +38,23 @@ class PositionManager {
     this.update();s
   }
 
-  newSize() {
+  newSize(newMiddle: boolean) {
     // update sizes
     this.w = this.sizeManager.w;
     this.h = this.sizeManager.h;
 
+    // set location back to center
+    this.x = this.sizeManager.centerX;
+    this.y = this.sizeManager.centerY;
+
     // update managed
     this.lattice.newSize(); // already connected to sizeManager
     this.pitches.midi = Midi.calcMidi(this.w, this.h);
-    this.pitches.resetTo(this.x, this.y);
+    if (newMiddle) {
+      this.pitches.resetTo(this.x, this.y);
+    }
 
-    // reset location
-    this.x = this.sizeManager.centerX;
-    this.y = this.sizeManager.centerY;
-    this.update();
+    this.updateOptPlay(newMiddle);
   }
 
   //// private ////
@@ -63,6 +66,10 @@ class PositionManager {
   private backupFifth: Int;
 
   private update() {
+    this.updateOptPlay(true);
+  }
+
+  private updateOptPlay(play: boolean) {
     // backup
     this.backupX = this.x;
     this.backupY = this.y;
@@ -73,7 +80,7 @@ class PositionManager {
     // update
     this.lattice.selectedX = this.x;
     this.lattice.selectedY = this.y;
-    this.player.setPitches();
+    if (play) { this.player.play() }
     this.lattice.error = false;
     this.sketch.redraw();
   }

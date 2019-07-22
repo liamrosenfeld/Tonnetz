@@ -21,7 +21,7 @@ class Player {
 
   start() {
     this.playing = true;
-    this.playAll();
+    this.play();
   }
 
   stop() {
@@ -29,12 +29,8 @@ class Player {
     this.playing = false;
   }
 
-  setPitches() {
+  play() {
     console.log(this.pitches.toString());
-    this.playAll();
-  }
-
-  private playAll() {
     if (this.playing) {
       this.sampler.releaseAll();
       this.sampler.triggerAttack(Midi.fullName(this.pitches.getRoot));

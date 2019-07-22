@@ -67,7 +67,7 @@ class PlayerPicker {
 
   private recenter = () => {
     this.pitches.resetTo(this.manager.getX, this.manager.getY)
-    this.player.setPitches();
+    this.player.play();
     return true;
   }
 }
