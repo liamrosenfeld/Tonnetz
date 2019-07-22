@@ -10,6 +10,7 @@ class PlayerPicker {
   private pitches: Pitches;
 
   // buttons
+  private readonly buttonSpacing = 30;
   private muteButton: p5.Element;
   private recenterButton: p5.Element;
 
@@ -35,7 +36,7 @@ class PlayerPicker {
     this.titleLabel.position(x, y - this.fontSize);
     y += 10
     this.muteButton.position(x, y);
-    y += 40
+    y += this.buttonSpacing
     this.recenterButton.position(x, y);
   }
 
@@ -49,7 +50,7 @@ class PlayerPicker {
     this.titleLabel = createLabel(this.sketch, "Playback", x, y, this.fontSize);
     y += 10
     this.muteButton = createButton(this.sketch, this.player.getPlaying ? "Mute" : "Unmute", x, y, this.toggleMute);
-    y += 40
+    y += this.buttonSpacing
     this.recenterButton = createButton(this.sketch, "Recenter Progression", x, y, this.recenter);
   }
 

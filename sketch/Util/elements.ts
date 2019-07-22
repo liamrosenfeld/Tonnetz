@@ -16,6 +16,6 @@ function createLabel(sketch: p5, text: string, x: Float, y: Float, fontSize: Flo
   label.parent("sketch-holder");
   label.position(x, y - fontSize);
   label.style("font-size", fontSize + "px");
-  label.style("color", "#ffffff")
+  label.style("color", "#eb9f34")
   return label;
 }

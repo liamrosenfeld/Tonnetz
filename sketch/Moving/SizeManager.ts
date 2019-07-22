@@ -92,7 +92,7 @@ class SizeManager {
   }
 
   private calcButtons() {
-    const perButton = 50;
+    const perButton = 40;
     const padding = 30;
 
     let buttonSectionTop = this.triSize * 3.5;

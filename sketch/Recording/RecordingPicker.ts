@@ -11,6 +11,8 @@ class RecordingPicker {
   private recording: Action[];
 
   // buttons
+  private readonly buttonSpacing = 30;
+
   private startRecButton: p5.Element;
   private stopRecButton:  p5.Element;
   private startPlayButton:  p5.Element;
@@ -32,32 +34,6 @@ class RecordingPicker {
     this.sizeManager = sizeManager;
   }
 
-  reposition() {
-    this.sketch.fill(1000);
-    this.sketch.textSize(20);
-
-    let x = this.sizeManager.recordingX;
-    let y = this.sizeManager.recordingY;
-
-    this.userLabel.position(x, y - this.fontSize);
-    y += 10
-    this.startRecButton.position(x, y);
-    y += 40
-    this.stopRecButton.position(x, y);
-    y += 40
-    this.startPlayButton.position(x, y);
-    y += 40
-    this.stopPlayButton.position(x, y);
-
-    x = this.sizeManager.demoX;
-    y = this.sizeManager.demoY;
-    this.demoLabel.position(x, y - this.fontSize);
-    y += 10
-    this.brahmsButton.position(x, y);
-    y += 40
-    this.hamiltonianButton.position(x, y);
-  }
-
   drawButtons() {
     this.sketch.fill(1000);
     this.sketch.textSize(20);
@@ -68,11 +44,11 @@ class RecordingPicker {
     this.userLabel = createLabel(this.sketch, "Recording", x, y, this.fontSize);
     y += 10
     this.startRecButton = createButton(this.sketch, "Start New", x, y, this.startRec);
-    y += 40
+    y += this.buttonSpacing
     this.stopRecButton  = createButton(this.sketch, "Stop Recording", x, y, this.stopRec);
-    y += 40
+    y += this.buttonSpacing
     this.startPlayButton = createButton(this.sketch, "Start Play Back", x, y, this.startPlay);
-    y += 40
+    y += this.buttonSpacing
     this.stopPlayButton  = createButton(this.sketch, "Stop Play Back", x, y, this.stopPlay);
 
     x = this.sizeManager.demoX;
@@ -80,12 +56,38 @@ class RecordingPicker {
     this.demoLabel = createLabel(this.sketch, "Examples", x, y, this.fontSize);
     y += 10
     this.brahmsButton = createButton(this.sketch, "Brahms Opus 102", x, y, this.brahms);
-    y += 40
+    y += this.buttonSpacing
     this.hamiltonianButton = createButton(this.sketch, "Hamiltonian Path", x, y, this.hamiltonian);
 
     this.stopRecButton.attribute("disabled", "");
     this.startPlayButton.attribute("disabled", "");
     this.stopPlayButton.attribute("disabled", "");
+  }
+
+  reposition() {
+    this.sketch.fill(1000);
+    this.sketch.textSize(20);
+
+    let x = this.sizeManager.recordingX;
+    let y = this.sizeManager.recordingY;
+
+    this.userLabel.position(x, y - this.fontSize);
+    y += 10
+    this.startRecButton.position(x, y);
+    y += this.buttonSpacing
+    this.stopRecButton.position(x, y);
+    y += this.buttonSpacing
+    this.startPlayButton.position(x, y);
+    y += this.buttonSpacing
+    this.stopPlayButton.position(x, y);
+
+    x = this.sizeManager.demoX;
+    y = this.sizeManager.demoY;
+    this.demoLabel.position(x, y - this.fontSize);
+    y += 10
+    this.brahmsButton.position(x, y);
+    y += this.buttonSpacing
+    this.hamiltonianButton.position(x, y);
   }
 
   // user

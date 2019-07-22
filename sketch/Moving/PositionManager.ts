@@ -35,7 +35,7 @@ class PositionManager {
 
     this.pitches.resetTo(this.x, this.y);
 
-    this.update();s
+    this.update();
   }
 
   newSize(newMiddle: boolean) {
