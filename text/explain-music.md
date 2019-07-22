@@ -10,7 +10,7 @@ Before we can get into the Neo-Riemannian Theory there are some concepts that yo
 
 An interval is simply the tonal gap between two notes. The smallest possible interval in Western music is a half step, which if you were to press two keys immediately next to each other on a piano. A whole step is simply two half steps. Intervals are a pretty simple concept and a huge building block for scales and chords.
 
-Names have been assigned to each interval, but for this you only need to know a couple:
+Names have been assigned to each interval, but for this, you only need to know a couple:
 
 - Minor Third (3 Half Steps)
 - Major Third (4 Half Steps)
@@ -27,7 +27,7 @@ You now have enough preliminary knowledge to dig into Neo-Riemannian Theory!
 
 ## History
 
-Hugo Riemannian is widely regarded as the father of modern functional harmony and a lot of his work involves an idea called dualism. Dualism is the idea that major and minor triads are actually just mirrors of each other (a concept that will show through in the Tonnetz).
+Hugo Riemannian is widely regarded as the father of modern functional harmony and a lot of his work involves an idea called dualism. Dualism is the idea that major and minor triads are just mirrors of each other (a concept that will show through in the Tonnetz).
 
 Riemannian then combined the idea of dualism with various other transpositions to create a series of transformations that can convert one chord to another.
 
@@ -39,14 +39,13 @@ The Tonnetz (German for "tone-network") is a method of visualizing Neo-Riemannia
 
 It is a lattice diagram representing tonal space. That is a fancy way of describing the reality of it being a series of triangles where each vertex is a note and each triangle is a major (pointing down) or minor (pointing up) triad consisting of the notes in its vertices.
 
-The method in which the notes of t
-he Tonnetz are laid out allows for its seemingly magical musical potential. Left to right horizontally, it increases by fifths. Descending vertically, it increases by major thirds.
+The method in which the notes of the Tonnetz are laid out allows for its seemingly magical musical potential. Left to right horizontally, it increases by fifths. Descending vertically, it increases by major thirds.
 
-That order allows for the Tonnetz to tie into Neo-Riemannian Theory as each each primary Neo-Riemannian transformations can be represented by reflecting the triangle over one of its sides.
+That order allows for the Tonnetz to tie into Neo-Riemannian Theory as each primary Neo-Riemannian transformations can be represented by reflecting the triangle over one of its sides.
 
 The three-dimensional visualization of the Tonnetz is a torus, so it will loop both horizontally and vertically. However, it loops vertically much quicker than horizontally so that is the only direction it will loop in the visualization.
 
-In order for these triads to comply with existing music theory rules, the Tonnetz assumes enharmonic equivalence (in other words, Ab = G#) along with no distinctions between octaves.
+For these triads to comply with existing music theory rules, the Tonnetz assumes enharmonic equivalence (in other words, Ab = G#) along with no distinctions between octaves.
 
 ## The Three Primary Transformations
 
@@ -54,7 +53,9 @@ In order for these triads to comply with existing music theory rules, the Tonnet
 
 The parallel transformation maintains the root and the fifth and moves the third a half step. It changes the chord between major and minor.
 
-Ex: C major 🔄 C minor
+Ex: F major 🔄 F minor
+
+![parallel transformation sheet music](/images/parallel.png)
 
 ### Relative
 
@@ -64,7 +65,9 @@ In a major triad, it takes the fifth up a whole step up to become the root of a 
 
 In a minor triad, it takes the root down a whole step to become the firth of a major triad.
 
-Ex: C major 🔄 A minor
+Ex: F major 🔄 D minor
+
+![relative transformation sheet music](/images/relative.png)
 
 ### Leading Tone
 
@@ -74,7 +77,13 @@ In a major triad, it takes the root down a half step to become the fifth of a mi
 
 In a minor triad, it takes the fifth up by a half step to become the root of a minor triad.
 
-Ex: C major 🔄 E minor
+Ex: F major 🔄 A minor
+
+![leading tone transformation sheet music](/images/leading-tone.png)
+
+### Smooth Voice Leading
+
+You may have noticed how every primary transformation only changes one note. That allows for the effect of smooth voice leading as the other two notes can remain the same. Smooth voice leading allows for triads to be out of their regular order in the interest of making each chord change sound smooth. This interactive visualization implements smooth voice leading to achieve its fluid sound.
 
 ## Complex Operations
 
@@ -97,3 +106,9 @@ Ex: C major 🔄 C♯ minor
 The Hexatonic Pole relation exchanges a triad for its hexatonic pole. It consists of LPL.
 
 Ex: C major 🔄 A♭ minor
+
+## Further Reading
+
+- [Introduction to Neo-Riemannian Theory: A Survey and a Historical Perspective by Richard Cohn](https://www.jstor.org/stable/843871?seq=1#page_scan_tab_contents)
+- [Essential Neo-Riemannian Theory for Today's Musician by Laura Felicity Mason](https://trace.tennessee.edu/cgi/viewcontent.cgi?referer=https://www.google.com/&httpsredir=1&article=2692&context=utk_gradthes)
+- [Transformational Theory in the Undergraduate Curriculum - A Case for Teaching the Neo-Riemannian Approach by Nora Engebretsen](https://jmtp.appstate.edu/transformational-theory-undergraduate-curriculum-case-teaching-neo-riemannian-approach)

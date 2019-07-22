@@ -18,6 +18,7 @@ app.set('view engine', 'ejs');
 // static resources
 app.use("/build", express.static("build"));
 app.use("/samples", express.static("samples"));
+app.use("/images", express.static("images"));
 
 // markdown
 function mdToHtml(fileName) {
@@ -29,7 +30,7 @@ function mdToHtml(fileName) {
 
 const music = mdToHtml("explain-music")
 const code  = mdToHtml("explain-code")
-const howTo = mdToHtml("how-to")
+const instructions = mdToHtml("instructions")
 const about = mdToHtml("about")
 
 // routes
@@ -45,8 +46,8 @@ app.get("/explain-code", function(req, res) {
   res.render(path.join(pagesDir, "text"), code);
 });
 
-app.get("/how-to", function(req, res) {
-  res.render(path.join(pagesDir, "text"), howTo);
+app.get("/instructions", function(req, res) {
+  res.render(path.join(pagesDir, "text"), instructions);
 });
 
 app.get("/about", function(req, res) {
