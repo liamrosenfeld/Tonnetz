@@ -1,16 +1,14 @@
 class SizeManager {
-
-  private sketch: p5;
-
-  // lattice constants
+  // constants
   private readonly defaultTriSize = 100;
   private readonly minTriLong = 12;
-
-  // button constants
   private readonly buttonSectionWidth = 245;
 
-  // shared
+  // private
   private winWidth: Float;
+
+  // Window Stuff
+  winHeight: Float;
 
   // Lattice Stuff
   w: Int = 12;
@@ -35,15 +33,9 @@ class SizeManager {
 
   demoX: Float;
   demoY: Float;
-  
-  constructor(sketch: p5) {
-    this.sketch = sketch;
-    this.calcSizes();
-  }
 
-  calcSizes() {
-    // update size
-    this.winWidth = this.sketch.width - 50; // factor in padding
+  calcSizes(width: Float) {
+    this.winWidth = width - 50; // factor in padding
 
     this.calcLattice();
 
@@ -92,6 +84,8 @@ class SizeManager {
       x += this.buttonSectionWidth;
       this.demoX = x;
 
+      this.winHeight = buttonSectionTop + (4 * perButton) + padding;
+
     } else if (this.winWidth > this.buttonSectionWidth * 3 + 50) {
       // all next to each other
       this.playbackY = buttonSectionTop;
@@ -108,6 +102,9 @@ class SizeManager {
       x += this.buttonSectionWidth + 25;
       this.recordingX = x;
       this.demoX = x;
+
+      this.winHeight = this.demoY + (2 * perButton) + padding;
+
     } else {
       // all stacked
       let y = buttonSectionTop + padding;
@@ -127,6 +124,8 @@ class SizeManager {
       this.compoundX = x;
       this.recordingX = x;
       this.demoX = x;
+
+      this.winHeight = y + (2 * perButton) + padding;
     }
   }
 

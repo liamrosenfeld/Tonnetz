@@ -11,13 +11,14 @@ const s = (sketch: p5) => {
 
   sketch.setup = () => {
     // create canvas
-    let canvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+    sizeManager = new SizeManager();
+    sizeManager.calcSizes(sketch.windowWidth);
+    let canvas = sketch.createCanvas(sketch.windowWidth, sizeManager.winHeight);
     canvas.parent('sketch-holder')
     sketch.background(51);
     sketch.noLoop();
 
     // managers
-    sizeManager = new SizeManager(sketch);
     manager = new PositionManager(sketch, sizeManager);
     
     // pickers
@@ -43,7 +44,8 @@ const s = (sketch: p5) => {
     }
 
     // reset canvas
-    sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+    sizeManager.calcSizes(sketch.windowWidth)
+    sketch.resizeCanvas(sketch.windowWidth, sizeManager.winHeight);
     sketch.background(51); // covers up everything except buttons
 
     // reset button positions
@@ -52,7 +54,7 @@ const s = (sketch: p5) => {
     playPicker.reposition();
     
     // update manager sizes
-    sizeManager.calcSizes()
+    
     manager.newSize();
 
     // redraw lattice
