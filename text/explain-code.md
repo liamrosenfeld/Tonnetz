@@ -1,6 +1,6 @@
 # The Code Explained
 
-Poking around the source code is always fun (I would recommend starting in the sketch folder), but if you want a dive into what makes this program tick... just keep reading!
+Poking around the [source code](https://github.com/liamrosenfeld/Tonnetz) is always fun (I would recommend starting in the sketch folder), but if you want a dive into what makes this program tick... just keep reading!
 
 ## Choosing the…
 

@@ -6,7 +6,7 @@ Hello, I'm Liam Rosenfeld. I will be going into the 11th grade for the 2019-20 s
 
 I play Clarinet and Saxophone in the school band. Throughout my dealings with music, I've been fascinated by its underpinnings. This explores a lesser-known corner of music theory called Neo-Riemannian Theory, an alternative to the traditional Roman Numerals.
 
-I enjoy visualizing abstract concepts through code (as I have [previously done with the Fourier Transform](https://github.com/liamrosenfeld/FourierArtist)) and I saw this as an exciting opportunity to provide an educational and exploratory tool for the Tonnetz and Neo-Riemannian Theory as a whole.
+Because Neo-Riemannian Theory is lesser-known (and also possibly because it has a scary name), it is seldom taught before graduate degrees. I enjoy visualizing abstract concepts through code (as I have [previously done with the Fourier Transform](https://github.com/liamrosenfeld/FourierArtist)) so I saw this as an opportunity to visualize and explain Neo-Riemannian Theory in a way that any musician can learn and explore.
 
 ## Usage
 
