@@ -127,5 +127,6 @@ typings/
 # Ignore all local history of files
 .history
 
-### tsc ###
-build/
+### custom ###
+/public/*
+!/public/**/
